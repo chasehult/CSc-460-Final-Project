@@ -184,6 +184,53 @@ public class Controller{
 		}
 	}
 
+
+    public static void executeQueryFive(String prefix, String airportID) {
+        /* Given an airportID display all the staff members that are involved with that airport based on the airlines that 
+        are involved in that airport. Display the employee_id and names of the staff members ordered by their names in alphabetical order */
+		try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+            //SELECT DISTINCT Staff.employee_id, Staff.name FROM Airport JOIN Flight ON Flight.dest_from=Airport.airport_id JOIN Staff ON Flight.airline=Staff.employed_by WHERE Airport.airport_id = 1 ORDER By Staff.name;
+			String query = "SELECT DISTINCT Staff.employee_id, Staff.name "
+					+ "FROM " + prefix + ".Airport "
+							+ "JOIN " + prefix + ".Flight ON " + prefix + "Flight.dest_from=" + prefix + "Airport.airport_id"
+							+ "JOIN " + prefix + ".Staff ON " + prefix + "Flight.airline=" + prefix + "Staff.employed_by "
+					+ "WHERE Airport.airport_id = " + airportID
+					+ " ORDER By Staff.name";
+			
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("\nThe results of the query are:\n");
+
+                    // Get the data about the query result to learn
+                    // the attribute names and use them as column headers
+
+                ResultSetMetaData answermetadata = answer.getMetaData();
+
+                for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
+                    System.out.print(answermetadata.getColumnName(i) + "\t");
+                }
+                System.out.println("\n-------------");
+
+                    // Use next() to advance cursor through the result
+                    // tuples and print their attribute values
+
+                while (answer.next()) System.out.println(answer.getString(1));
+            }
+            	System.out.println("=============\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query one due to some SQL exception.");
+		}
+	}
+
     public void close(){
         try {
             dbconn.close();
