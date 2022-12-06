@@ -212,13 +212,13 @@ public class Controller{
         public void updateFlight(int flightId, String airlineName, String boardingGate, 
         java.sql.Date flightDate, java.sql.Time boardingTime, java.sql.Time departingTime, 
         int airportFrom, int airportTo) throws SQLException{
-            String query = "UPDATE Flight SET 'AirLine Name' ='" + airlineName + 
-            "', 'Boarding Gate' = '" + boardingGate + "', 'Flight Date' = '" + 
-            String.valueOf(flightDate) + "', 'Boarding Time' = '" + String.valueOf(boardingTime) + 
-            "', 'Departing Time' = '" + String.valueOf(departingTime) + "', Duration = '"
+            String query = "UPDATE Flight SET airline ='" + airlineName + 
+            "', boarding_gate = '" + boardingGate + "', flight_date = '" + 
+            String.valueOf(flightDate) + "', boarding_time = '" + String.valueOf(boardingTime) + 
+            "', departing_time = '" + String.valueOf(departingTime) + "', duration = '"
             + String.valueOf(java.time.Duration.between(boardingTime.toLocalTime(), departingTime.toLocalTime()))
-            + "', 'Airport From' = " + String.valueOf(airportFrom) + ", 'Airport To' = " + airportTo + 
-            " WHERE 'Flight ID' = " + String.valueOf(flightId) + ";";
+            + "', dest_from = " + String.valueOf(airportFrom) + ", dest_to = " + airportTo + 
+            " WHERE flight_id = " + String.valueOf(flightId) + ";";
     
             try{
                 dbconn.createStatement().executeQuery(query);
@@ -228,7 +228,7 @@ public class Controller{
             }
 
         public void deleteFlight (int flightId) throws SQLException{
-            String query = "DELETE FROM Flight WHERE 'Flight ID' = " + String.valueOf(flightId) + ";";
+            String query = "DELETE FROM Flight WHERE flight_id = " + String.valueOf(flightId) + ";";
             try{
                 dbconn.createStatement().executeQuery(query);
                 }catch(SQLException e){
@@ -251,10 +251,10 @@ public class Controller{
 
         public void updatePassenger(int passengerId, String name, boolean frequentFlier, 
         boolean student, boolean thirdCategory) throws SQLException{
-            String query = "UPDATE Passenger SET Name ='" + name + 
-            "', 'Frequent Flier' = '" + String.valueOf(frequentFlier) + "', Student = '" + 
-            String.valueOf(student) + "', 'Third Category' = '" + String.valueOf(thirdCategory) + 
-            " WHERE 'Passenger ID' = " + String.valueOf(passengerId) + ";";
+            String query = "UPDATE Passenger SET name ='" + name + 
+            "', frequent_flier = '" + String.valueOf(frequentFlier) + "', student = '" + 
+            String.valueOf(student) + "', third_category = '" + String.valueOf(thirdCategory) + 
+            " WHERE passenger_id = " + String.valueOf(passengerId) + ";";
     
             try{
                 dbconn.createStatement().executeQuery(query);
@@ -264,7 +264,7 @@ public class Controller{
             }
 
         public void deletePassenger (int passengerId) throws SQLException{
-            String query = "DELETE FROM Passenger WHERE 'Passenger ID' = " + String.valueOf(passengerId) + ";";
+            String query = "DELETE FROM Passenger WHERE passenger_id = " + String.valueOf(passengerId) + ";";
             try{
                 dbconn.createStatement().executeQuery(query);
                 }catch(SQLException e){
@@ -272,9 +272,9 @@ public class Controller{
                 }
         }
 
-        public void insertAirport(int airportId, String name, String location) throws SQLException{
+        public void insertAirport(int airportId, String name,String airportCode, String location) throws SQLException{
         String query = "INSERT INTO Airport VALUES (" + String.valueOf(airportId) + ", '"
-        + name + "', '" + location + "');";
+        + name + "', '" + airportCode + "', '" + location + "');";
 
         try{
             dbconn.createStatement().executeQuery(query);
@@ -283,9 +283,9 @@ public class Controller{
             }
         }
 
-        public void updateAirport(int airportId, String name, String location) throws SQLException{
-            String query = "UPDATE Airport SET 'Airport Name' ='" + name + 
-            "', Location = '" + location + "' WHERE 'Passenger ID' = " + String.valueOf(airportId) + ";";
+        public void updateAirport(int airportId, String name, String airportCode, String location) throws SQLException{
+            String query = "UPDATE Airport SET airport_name ='" + name + "', airport_code = '" + airportCode + 
+            "', location = '" + location + "' WHERE airport_id = " + String.valueOf(airportId) + ";";
     
             try{
                 dbconn.createStatement().executeQuery(query);
@@ -295,7 +295,7 @@ public class Controller{
             }
 
         public void deleteAirport (int airportId) throws SQLException{
-            String query = "DELETE FROM Airport WHERE 'Airport ID' = " + String.valueOf(airportId) + ";";
+            String query = "DELETE FROM Airport WHERE airport_id = " + String.valueOf(airportId) + ";";
             try{
                 dbconn.createStatement().executeQuery(query);
                 }catch(SQLException e){
@@ -304,7 +304,7 @@ public class Controller{
         }
 
         public void insertBoardingGate(int gateId, int airport) throws SQLException{
-            String query = "INSERT INTO 'Boarding Gate' VALUES (" + String.valueOf(gateId) + ", "
+            String query = "INSERT INTO BoardingGate VALUES (" + String.valueOf(gateId) + ", "
             + airport + ");";
     
             try{
@@ -315,8 +315,8 @@ public class Controller{
             }
     
         public void updateBoardingGate(int gateId, int airport) throws SQLException{
-            String query = "UPDATE 'Boarding Gate' SET Airport = " + airport + 
-            " WHERE 'Gate ID' = " + String.valueOf(gateId) + ";";
+            String query = "UPDATE BoardingGate SET airport_id = " + airport + 
+            " WHERE boarding_gate = " + String.valueOf(gateId) + ";";
         
             try{
                 dbconn.createStatement().executeQuery(query);
@@ -326,7 +326,7 @@ public class Controller{
             }
     
         public void deleteBoardingGate (int gateId) throws SQLException{
-            String query = "DELETE FROM 'Boarding Gate' WHERE 'Gate ID' = " + String.valueOf(gateId) + ";";
+            String query = "DELETE FROM BoardingGate WHERE boarding_gate = " + String.valueOf(gateId) + ";";
             try{
                 dbconn.createStatement().executeQuery(query);
                 }catch(SQLException e){
@@ -334,9 +334,9 @@ public class Controller{
                 }
         }
 
-        public void insertStaff(int employeeId, int employedBy, String name, String job) throws SQLException{
-            String query = "INSERT INTO Staff VALUES (" + String.valueOf(employeeId) + ", "
-            + employedBy + ", '" + name + "', '" + job + "');";
+        public void insertStaff(int employeeId, String name, String job) throws SQLException{
+            String query = "INSERT INTO Staff VALUES (" + String.valueOf(employeeId) + ", '"
+             + name + "', '" + job + "');";
     
             try{
                 dbconn.createStatement().executeQuery(query);
@@ -345,9 +345,9 @@ public class Controller{
                 }
             }
         
-        public void updateStaff(int employeeId, int employedBy, String name, String job) throws SQLException{
-            String query = "UPDATE Staff SET 'Employed By' =" + employedBy + 
-            ", Name = '" + name + "', Job = '" + job + "' WHERE 'Employee ID' = " + String.valueOf(employeeId) + ";";
+        public void updateStaff(int employeeId, String name, String job) throws SQLException{
+            String query = "UPDATE Staff SET name = '" + name + "', Job = '" + job + 
+            "' WHERE employee_id = " + String.valueOf(employeeId) + ";";
     
             try{
                 dbconn.createStatement().executeQuery(query);
@@ -357,7 +357,7 @@ public class Controller{
             }
 
         public void deleteStaff (int employeeId) throws SQLException{
-            String query = "DELETE FROM Staff WHERE 'Employee ID' = " + String.valueOf(employeeId) + ";";
+            String query = "DELETE FROM Staff WHERE employee_id = " + String.valueOf(employeeId) + ";";
             try{
                 dbconn.createStatement().executeQuery(query);
                 }catch(SQLException e){
