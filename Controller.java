@@ -135,7 +135,7 @@ public class Controller{
 		}
 	}
 	
-	public static void executeQueryTwo(String prefix, String date) {
+	public static void executeQueryThree(String prefix, String date) {
 		try {
 			Statement stmt = dbconn.createStatement();	// The statement to execute the query
 			ResultSet answer = null; // The answer to the query
