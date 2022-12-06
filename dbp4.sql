@@ -90,7 +90,8 @@ CREATE TABLE Passenger (
 CREATE TABLE Staff (
     employee_id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
-    job VARCHAR(30) NOT NULL
+    job VARCHAR(30) NOT NULL,
+    employed_by VARCHAR(9) NOT NULL REFERENCES Airline (name) ON DELETE CASCADE
 );
 
 -- This isn't needed atm, but frequent flier definitely *should* be here
@@ -207,26 +208,29 @@ INSERT INTO Passenger VALUES (6, 'Gina Cortez',  1, 1, 0);
 INSERT INTO Passenger VALUES (7, 'Haru Takashi', 1, 1, 1);
 
 -- Test Staff.  These are not used in anything.  Why do we have to do these.
-INSERT INTO Staff VALUES (0, 'Tyler Donovan', 'Pilot');
-INSERT INTO Staff VALUES (1, 'Isaac King', 'Pilot');
-INSERT INTO Staff VALUES (2, 'Milly Peterson', 'Ground Crew');
-INSERT INTO Staff VALUES (3, 'River Medina', 'Ground Crew');
-INSERT INTO Staff VALUES (4, 'Felix Pearson', 'Flight Attendant');
-INSERT INTO Staff VALUES (5, 'Billy Walter', 'Flight Attendant');
-INSERT INTO Staff VALUES (6, 'Doris Morales', 'Cabin Crew');
-INSERT INTO Staff VALUES (7, 'Moira Barbos', 'Cabin Crew');
+INSERT INTO Staff VALUES (0, 'Tyler Donovan', 'Pilot', 'Delta');
+INSERT INTO Staff VALUES (1, 'Isaac King', 'Pilot', 'Delta');
+INSERT INTO Staff VALUES (2, 'Milly Peterson', 'Ground Crew', 'Delta');
+INSERT INTO Staff VALUES (3, 'River Medina', 'Ground Crew', 'United');
+INSERT INTO Staff VALUES (4, 'Felix Pearson', 'Flight Attendant', 'United');
+INSERT INTO Staff VALUES (5, 'Billy Walter', 'Flight Attendant', 'United');
+INSERT INTO Staff VALUES (6, 'Doris Morales', 'Cabin Crew', 'United');
+INSERT INTO Staff VALUES (7, 'Moira Barbos', 'Cabin Crew', 'United');
 
 -- Test Airports
 INSERT INTO Airport VALUES (0, 'Los Angeles International Airport', 'LAX', 'Los Angeles, CA');
+INSERT INTO Airport VALUES (1, 'Phoenix Sky Harbor International Airport', 'PHX', 'Phoenix, AZ');
 INSERT INTO BoardingGate VALUES ('A1', 0);
 INSERT INTO BoardingGate VALUES ('A2', 0);
 INSERT INTO BoardingGate VALUES ('A3', 0);
 INSERT INTO BoardingGate VALUES ('B1', 0);
 INSERT INTO BoardingGate VALUES ('B2', 0);
+INSERT INTO BoardingGate VALUES ('A1', 1);
 INSERT INTO AirlineAirport VALUES ('Alaska', 0);
 INSERT INTO AirlineAirport VALUES ('Delta', 0);
 INSERT INTO AirlineAirport VALUES ('Southwest', 0);
 INSERT INTO AirlineAirport VALUES ('United', 0);
+INSERT INTO AirlineAirport VALUES ('Delta', 1);
 
 -- Test Flights
 -- Data for Query 1
@@ -317,6 +321,8 @@ INSERT INTO PassengerFlight VALUES (3, 17, 3, 0);
 --     AND ordered_snacks = 1;
 -- -- Should just be Cody
 
+--Data For Query 5--
+INSERT INTO Flight VALUES (21, 'Delta', 'A1', DATE '2021-03-01', 0200, 0400, 300, 1, 1);
 
 -- Test Student Trigger
 INSERT INTO Flight VALUES (18, 'Alaska', 'B1', DATE '2021-01-02', 0000, 0000, 100, 0, 0);
