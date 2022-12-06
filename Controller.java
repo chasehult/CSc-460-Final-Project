@@ -181,6 +181,152 @@ public class Controller{
 		}
 	}
 
+    public void insertPassenger(String passengerID, String name, String frequentFlier, String student, String thirdCatergory) {
+        try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+			String query = "INSERT INTO Passenger VALUES (" + passengerID + ", '" + name + "', " + frequentFlier + ", " + student + ", " + thirdCatergory + ")";
+			
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("Passenger Inserted!");
+
+                System.out.println("\n---------------------------------------------------------");
+            }
+            	System.out.println("=========================================================\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query three due to some SQL exception.");
+		}
+    }
+
+    public void insertFlight(String flightID, String airlineName, String boardingGate, String flightDate, String boardingTime, String departingTime, String duration, String airportFrom, String ariportTo) {
+        try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+			String query = "INSERT INTO Flight VALUES (" + flightID + ", '" + airlineName + "', '" boardingGate "', DATE '" + flightDate + "', " + boardingTime + ", " + departingTime + ", " + duration + ", " + airportFrom + ", " + airportTo + ")";			
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("Flight Inserted!");
+
+                System.out.println("\n---------------------------------------------------------");
+            }
+            	System.out.println("=========================================================\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query three due to some SQL exception.");
+		}
+    }
+
+    public void deletePassenger(String passengerID) {
+        try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+			String query = "DELETE FROM Passenger WHERE passenger_id=" + passengerID;			
+			
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("Passenger Deleted!");
+
+                System.out.println("\n---------------------------------------------------------");
+            }
+            	System.out.println("=========================================================\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query three due to some SQL exception.");
+		}
+    }
+
+    public void deleteFlight(String flightID) {
+        try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+			String query = "DELETE FROM Flight WHERE flight_id=" + flightID;			
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("Flight Deleted!");
+
+                System.out.println("\n---------------------------------------------------------");
+            }
+            	System.out.println("=========================================================\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query three due to some SQL exception.");
+		}
+    }
+
+    public void updatePassenger(String passengerID, String name, String frequentFlier, String student, String thirdCatergory) {
+        try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+			String query = "UPDATE Passenger SET name='" + name + "', frequentFlier=" + frequentFlier + ", student=" + student + ", thirdCategory=" + thirdCatergory + " WHERE passenger_id=" + passengerID;
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("Passenger Updated!");
+
+                System.out.println("\n---------------------------------------------------------");
+            }
+            	System.out.println("=========================================================\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query three due to some SQL exception.");
+		}
+    }
+
+    public void updateFlight(String flightID) {
+        try {
+			Statement stmt = dbconn.createStatement();	// The statement to execute the query
+			ResultSet answer = null; // The answer to the query
+			
+			// The query to execute to oracle
+			String query = "UPDATE Flight SET airline='" + airlineName + "', boarding_gate='" boardingGate "', flight_date= DATE '" + flightDate + "', boarding_time=" + boardingTime + ", departing_time=" + departingTime + ", duration=" + duration + ", dest_from=" + airportFrom + ", dest_to=" + airportTo + " WHERE flight_id=" + flightID;			
+			answer = stmt.executeQuery(query);
+
+            if (answer != null) {
+
+                System.out.println("Flight Deleted!");
+
+                System.out.println("\n---------------------------------------------------------");
+            }
+            	System.out.println("=========================================================\n");
+            
+			stmt.close();
+			
+		} catch (SQLException e) {
+			System.out.println("Could not execute query three due to some SQL exception.");
+		}
+    }
+
     public void close(){
         try {
             dbconn.close();
