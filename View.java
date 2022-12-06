@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class View{
+    private static Controller controller;
 	private static void recordInsert(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which type of record would you like to insert?\n"
@@ -112,7 +113,11 @@ public class View{
 	}
 	
     public static void main(String[] args){
+        //TODO use correct username and password or add user input for those
+        //Controller controller = new Controller("username", "password");
     	System.out.println("Welcome to our CSC460 JDBC interface!");
     	prompt();
+        //uncomment after fixing username/password issue above
+        //controller.close();
     }
 }
