@@ -251,7 +251,7 @@ public class Controller{
 	            System.out.println("=========================\n");
 	            	
 	            answer = null;
-	            answer = stmt.executeQuery(queryP2);
+	            answer = stmt.executeQuery(queryP3);
 	            if (answer != null) {
 	            	System.out.println("ORDERED SNACKS/BEVERAGES:");
 	                ResultSetMetaData answermetadata = answer.getMetaData();
