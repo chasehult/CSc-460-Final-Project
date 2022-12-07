@@ -446,6 +446,166 @@ public class View{
 		}
 	}
 
+	/*---------------------------------------------------------------------
+    |  Method insertPassengerFlight(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the insertion of passengerFlight member, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void insertPassengerFlight(Scanner scanner) {
+		System.out.println("Enter a ID of the passenger.");
+		String passengerIDString = scanner.nextLine();
+		while (!(isNumeric(passengerIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			passengerIDString = scanner.nextLine();
+		}
+		int passengerID = Integer.valueOf(passengerIDString);
+
+		System.out.println("Enter a ID of the flight.");
+		String flightIDString = scanner.nextLine();
+		while (!(isNumeric(flightIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			flightIDString = scanner.nextLine();
+		}
+		int flightID = Integer.valueOf(flightIDString);
+
+		System.out.println("Enter a the number of bags checked.");
+		String bagsCheckedString = scanner.nextLine();
+		while (!(isNumeric(bagsCheckedString))) {
+			System.out.println("Invalid input - please input a number.");
+			bagsCheckedString = scanner.nextLine();
+		}
+		int bagsChecked = Integer.valueOf(bagsCheckedString);
+
+		System.out.println("Enter 1 if ordered snacks, 0 otherwise.");
+		String orderedSnacksString = scanner.nextLine();
+		while (orderedSnacksString.length() != 1 || !isNumeric(orderedSnacksString)) {
+			System.out.println("Invalid input - please enter 1 or 0.");
+			orderedSnacksString = scanner.nextLine();
+		}
+		boolean orderedSnacks = false;
+		if (!orderedSnacksString.equals("0")) {
+			orderedSnacks = true;
+		}
+
+		try {
+			Controller.insertPassengerFlight(passengerID, flightID, bagsChecked, orderedSnacks);
+		} catch (SQLException e) {
+			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	/*---------------------------------------------------------------------
+    |  Method updatePassengerFlight(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the update of passengerFlight member, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void updatePassengerFlight(Scanner scanner) {
+		System.out.println("Enter a ID of the passenger to be updated.");
+		String passengerIDString = scanner.nextLine();
+		while (!(isNumeric(passengerIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			passengerIDString = scanner.nextLine();
+		}
+		int passengerID = Integer.valueOf(passengerIDString);
+
+		System.out.println("Enter a ID of the flight of passenger to be updated.");
+		String flightIDString = scanner.nextLine();
+		while (!(isNumeric(flightIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			flightIDString = scanner.nextLine();
+		}
+		int flightID = Integer.valueOf(flightIDString);
+
+		System.out.println("Enter a the updated number of bags checked.");
+		String bagsCheckedString = scanner.nextLine();
+		while (!(isNumeric(bagsCheckedString))) {
+			System.out.println("Invalid input - please input a number.");
+			bagsCheckedString = scanner.nextLine();
+		}
+		int bagsChecked = Integer.valueOf(bagsCheckedString);
+
+		System.out.println("Enter 1 if ordered snacks, 0 otherwise.");
+		String orderedSnacksString = scanner.nextLine();
+		while (orderedSnacksString.length() != 1 || !isNumeric(orderedSnacksString)) {
+			System.out.println("Invalid input - please enter 1 or 0.");
+			orderedSnacksString = scanner.nextLine();
+		}
+		boolean orderedSnacks = false;
+		if (!orderedSnacksString.equals("0")) {
+			orderedSnacks = true;
+		}
+
+		try {
+			Controller.updatePassengerFlight(passengerID, flightID, bagsChecked, orderedSnacks);
+		} catch (SQLException e) {
+			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	/*---------------------------------------------------------------------
+    |  Method deletePassengerFlight(scanner)
+    |
+    |  Purpose:  Prompts the user with the employeeID for the employee to be deleted, the
+	|			 controller is then called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void deletePassengerFlight(Scanner scanner) {
+		System.out.println("Enter a ID for the passenger that the flight will be deleted from.");
+		String employeeIDString = scanner.nextLine();
+		while (!(isNumeric(employeeIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			employeeIDString = scanner.nextLine();
+		}
+		int employeeID = Integer.valueOf(employeeIDString);
+
+		System.out.println("Enter a ID for the flight that will be deleted from the passenger.");
+		String flightIDString = scanner.nextLine();
+		while (!(isNumeric(flightIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			flightIDString = scanner.nextLine();
+		}
+		int flightID = Integer.valueOf(flightIDString);
+		
+		try {
+			Controller.deletePassengerFlight(employeeID, flightID);
+		} catch (SQLException e) {
+			System.out.println("Deletion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	
+
 		/*---------------------------------------------------------------------
     |  Method updateStaff(scanner)
     |
@@ -617,7 +777,8 @@ public class View{
 				+ "2: Flight\n"
 				+ "3: Staff\n"
 				+ "4: Boarding Gate\n"
-				+ "5: Go Back\n");
+				+ "5: Passenger Flight\n"
+				+ "6: Go Back\n");
 		String input = scanner.nextLine();
 		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
@@ -634,6 +795,9 @@ public class View{
 		}
 		else if (input.equals("4")) {
 			insertBoardingGate(scanner);
+		}
+		else if (input.equals("5")) {
+			insertPassengerFlight(scanner);
 		}
 		
 	}
@@ -660,7 +824,8 @@ public class View{
 				+ "2: Flight\n"
 				+ "3: Staff\n"
 				+ "4: Boarding Gate\n"
-				+ "3: Go Back\n");
+				+ "5: Passenger Flight\n"
+				+ "6: Go Back\n");
 		String input = scanner.nextLine();
 		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
@@ -677,6 +842,9 @@ public class View{
 		}
 		else if (input.equals("4")) {
 			deleteBoardingGate(scanner);
+		}
+		else if (input.equals("5")) {
+			deletePassengerFlight(scanner);
 		}
 	}
 	
@@ -702,7 +870,8 @@ public class View{
 				+ "2: Flight\n"
 				+ "3: Staff\n"
 				+ "4: Boarding Gate\n"
-				+ "5: Go Back\n");
+				+ "5: Passenger Flight\n"
+				+ "6: Go Back\n");
 		String input = scanner.nextLine();
 		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
@@ -911,6 +1080,9 @@ public class View{
 		else if (input.equals("4")) {
 			updateBoardingGate(scanner);
 		}
+		else if (input.equals("5")) {
+			updatePassengerFlight(scanner);
+		}
 	}
 	
 	/*---------------------------------------------------------------------
@@ -1038,10 +1210,10 @@ public class View{
 		}
 		switch (input) {
 			case "1":
-
+				controller.getPassengers();
 				break;
 			case "2":
-				
+				controller.getFlights();
 				break;
 			case "3":
 				String passengerID = "";
@@ -1053,7 +1225,7 @@ public class View{
 					passengerID = scanner.nextLine();
 				}
 
-
+				controller.getHistory(passengerID);
 				break;
 			case "4":
 				break;
