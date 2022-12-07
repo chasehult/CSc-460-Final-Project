@@ -97,8 +97,8 @@ public class Controller{
 					+ "FROM " + prefix + ".Passenger "
 						+ "NATURAL JOIN " + prefix + ".PassengerFlight "
 						+ "NATURAL JOIN " + prefix + ".Flight "
-					+ "WHERE flight_date = TO_DATE(" + date + " || '-MAR-21') AND airline = " + airline
-					+ " ORDER BY flight_id, bags_checked";
+					+ "WHERE flight_date = TO_DATE(" + date + " || '-MAR-21') AND airline = '" + airline
+					+ "' ORDER BY flight_id, bags_checked";
 			
 			answer = stmt.executeQuery(query);
 
