@@ -55,7 +55,7 @@ public class Controller{
 							+ "JOIN " + prefix + ".PassengerFlight USING (passenger_id) "
 							+ "JOIN " + prefix + ".Flight USING (flight_id) "
 					+ "GROUP BY passenger_id, name "
-					+ "HAVING COUNT(DISTING airline) = 4";
+					+ "HAVING COUNT(DISTINCT airline) = 4";
 			
 			answer = stmt.executeQuery(query);
 
