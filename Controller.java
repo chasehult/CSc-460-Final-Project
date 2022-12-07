@@ -1042,7 +1042,7 @@ public class Controller {
 		System.out.println("---  ------------------------------  --------------  -------  -----");
 		while (answer.next()) {
 			System.out.printf(
-					"%3d  %30s  %14s  %7s  %5s",
+					"%3d  %30s  %14s  %7s  %5s\n",
 					answer.getInt("passenger_id"),
 					answer.getString("name"),
 					answer.getBoolean("frequent_flier")?"Yes":"No",
@@ -1069,7 +1069,7 @@ public class Controller {
 		System.out.println("---  ---------  ----  -----  --------  ---------  --------  ----  ---");
 		while (answer.next()) {
 			System.out.printf(
-					"%3d  %9s  %4s  %02d/%02d  %8d  %9d  %8d  %3d  %3d",
+					"%3d  %9s  %4s  %02d/%02d  %8d  %9d  %8d  %3d  %3d\n",
 					answer.getInt("flight_id"),
 					answer.getString("airline"),
 					answer.getString("boarding_gate"),
@@ -1101,7 +1101,7 @@ public class Controller {
 		System.out.println("---  ------------  -------");
 		while (answer.next()) {
 			System.out.printf(
-					"%3d  %12d  %7s",
+					"%3d  %12d  %7s\n",
 					answer.getInt("flight_id"),
 					answer.getInt("bags_checked"),
 					answer.getBoolean("ordered_snacks")?"Yes":"No"
