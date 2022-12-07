@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class View{
+	private static String prefix;
     private static Controller controller;
 	private static void recordInsert(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
@@ -64,7 +65,55 @@ public class View{
 	}
 	
 	private static void query(Scanner scanner) {
-		// TODO: Add query descriptions and call queries via controller
+		System.out.println("\n----------------------------------------------\n"
+				+ "Which type of record would you like to update?\n"
+				+ "----------------------------------------------\n"
+				+ "1: Display list of distinct passenger names who took flights from all \n"
+				+ "four airlines in 2021.\n\n"
+				+ "2: For any airline entered by the user, print the list of passengers, \n"
+				+ "with the number of checked–in bags. Sort the list in ascending order of \n"
+				+ "the number of checked–in bags. Display the output grouped by flights for \n"
+				+ "a particular date in March (input by the user).\n\n"
+				+ "3: Print the schedule of flights for a given date in June (input by the \n"
+				+ "user). The schedule should contain the flight number, gate number, name \n"
+				+ "of the airline of that flight, boarding time, departing time, duration of \n"
+				+ "flight, route of the flight (i.e. origin for arriving flights and destination \n"
+				+ "for the departing flights). Sort the schedule in ascending order of the \n"
+				+ "boarding time.\n\n"
+				+ "4: Print the list for the three categories of passengers (Student, Frequent \n"
+				+ "Flyer, Category of your choice) for each of the following queries for a \n"
+				+ "particular airline (of your choice) who: Traveled only once in the month \n"
+				+ "of March, Traveled with exactly one checked in bag anytime in the months \n"
+				+ "of June and July, Ordered snacks/beverages on at least on one flight\n\n"
+				+ "5: Custom Query\n\n"
+				+ "6: Go Back");
+		String input = scanner.nextLine();
+		while (!(Integer.valueOf(input) > 0 && Integer.valueOf(input) < 7)) {
+			System.out.println("Invalid input - please input a number from 1-6.");
+			input = scanner.nextLine();
+		}
+		switch (input) {
+			case "1":
+				controller.executeQueryOne(prefix);
+				break;
+			case "2":
+				//TODO: Get date and airline from user
+				String date = "";
+				String airline = "";
+				controller.executeQueryTwo(prefix, date, airline);
+				break;
+			case "3":
+				
+				break;
+			case "4":
+				
+				break;
+			case "5":
+				
+				break;
+			case "6":
+				break;
+		}
 	}
 	
 	private static void prompt() {
@@ -116,6 +165,7 @@ public class View{
         //TODO use correct username and password or add user input for those
         //Controller controller = new Controller("username", "password");
     	System.out.println("Welcome to our CSC460 JDBC interface!");
+    	prefix = ""; //TODO: Add correct database prefix
     	prompt();
         //uncomment after fixing username/password issue above
         //controller.close();
