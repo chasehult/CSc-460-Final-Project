@@ -212,10 +212,10 @@ INSERT INTO BoardingGate VALUES ('A1', 2);
 
 -- Test Flights
 -- Data for Query 1
-INSERT INTO Flight VALUES (0, 'Delta', 'A1', DATE '2021-01-01', 0000, 0100, 500, 0, 0);
-INSERT INTO Flight VALUES (1, 'Southwest', 'A2', DATE '2021-04-12', 1230, 1300, 100, 0, 0);
-INSERT INTO Flight VALUES (2, 'United', 'A3', DATE '2021-02-15', 1500, 1530, 200, 0, 0);
-INSERT INTO Flight VALUES (3, 'Alaska', 'B1', DATE '2021-11-21', 1815, 1900, 130, 0, 0);
+INSERT INTO Flight VALUES (0, 'Delta', 'A1', DATE '2021-01-01', 0000, 0100, 500, 0, 2);
+INSERT INTO Flight VALUES (1, 'Southwest', 'A2', DATE '2021-04-12', 1230, 1300, 100, 1, 0);
+INSERT INTO Flight VALUES (2, 'United', 'A3', DATE '2021-02-15', 1500, 1530, 200, 2, 1);
+INSERT INTO Flight VALUES (3, 'Alaska', 'B1', DATE '2021-11-21', 1815, 1900, 130, 1, 2);
 INSERT INTO PassengerFlight VALUES (0, 0, 1, 0);
 INSERT INTO PassengerFlight VALUES (0, 1, 1, 0);
 INSERT INTO PassengerFlight VALUES (0, 2, 1, 0);
@@ -235,9 +235,9 @@ INSERT INTO PassengerFlight VALUES (3, 2, 1, 0);
 -- -- Should give only Avia
 
 -- Data for Query 2
-INSERT INTO Flight VALUES (4, 'Southwest', 'B2', DATE '2021-03-14', 0314, 0345, 314, 0, 0);
-INSERT INTO Flight VALUES (5, 'Southwest', 'A1', DATE '2021-03-17', 0615, 0630, 500, 0, 0);
-INSERT INTO Flight VALUES (6, 'Alaska', 'A2', DATE '2021-03-14', 0700, 1730, 500, 0, 0);
+INSERT INTO Flight VALUES (4, 'Southwest', 'B2', DATE '2021-03-14', 0314, 0345, 314, 2, 1);
+INSERT INTO Flight VALUES (5, 'Southwest', 'A1', DATE '2021-03-17', 0615, 0630, 500, 1, 0);
+INSERT INTO Flight VALUES (6, 'Alaska', 'A2', DATE '2021-03-14', 0700, 1730, 500, 2, 0);
 INSERT INTO PassengerFlight VALUES (4, 4, 2, 0);
 INSERT INTO PassengerFlight VALUES (5, 5, 2, 1);
 INSERT INTO PassengerFlight VALUES (6, 6, 3, 1);
@@ -251,13 +251,13 @@ SELECT name, bags_checked
 
 
 -- Data for Query 3
-INSERT INTO Flight VALUES (7, 'Alaska', 'A3', DATE '2021-06-12', 0612, 0700, 100, 0, 0);
-INSERT INTO Flight VALUES (8, 'Southwest', 'B1', DATE '2021-06-12', 0800, 0830, 200, 0, 0);
-INSERT INTO Flight VALUES (9, 'Southwest', 'B2', DATE '2021-06-12', 1830, 1900, 200, 0, 0);
-INSERT INTO Flight VALUES (10, 'United', 'A1', DATE '2021-06-12', 0700, 0730, 130, 0, 0);
-INSERT INTO Flight VALUES (11, 'Alaska', 'A2', DATE '2021-06-01', 0000, 0010, 100, 0, 0);
-INSERT INTO Flight VALUES (12, 'Alaska', 'A3', DATE '2021-06-01', 0110, 0120, 100, 0, 0);
-INSERT INTO Flight VALUES (13, 'Southwest', 'B1', DATE '2021-06-01', 0220, 0230, 100, 0, 0);
+INSERT INTO Flight VALUES (7, 'Alaska', 'A3', DATE '2021-06-12', 0612, 0700, 100, 1, 2);
+INSERT INTO Flight VALUES (8, 'Southwest', 'B1', DATE '2021-06-12', 0800, 0830, 200, 0, 1);
+INSERT INTO Flight VALUES (9, 'Southwest', 'B2', DATE '2021-06-12', 1830, 1900, 200, 2, 0);
+INSERT INTO Flight VALUES (10, 'United', 'A1', DATE '2021-06-12', 0700, 0730, 130, 0, 2);
+INSERT INTO Flight VALUES (11, 'Alaska', 'A2', DATE '2021-06-01', 0000, 0010, 100, 1, 2);
+INSERT INTO Flight VALUES (12, 'Alaska', 'A3', DATE '2021-06-01', 0110, 0120, 100, 2, 0);
+INSERT INTO Flight VALUES (13, 'Southwest', 'B1', DATE '2021-06-01', 0220, 0230, 100, 1, 2);
 -- SELECT DISTINCT flight_id, boarding_gate, airline, flight_date, boarding_time, departing_time, duration, apf.location AS "from", apt.location AS "to"
 --   FROM Flight
 --     JOIN Airport apf ON (dest_from = apf.airport_id)
@@ -266,13 +266,13 @@ INSERT INTO Flight VALUES (13, 'Southwest', 'B1', DATE '2021-06-01', 0220, 0230,
 --   ORDER BY boarding_time ASC;
 
 -- Data for Query 4
-INSERT INTO Flight VALUES (14, 'Delta', 'B2', DATE '2021-03-10', 0300, 0330, 100, 0, 0);
-INSERT INTO Flight VALUES (15, 'Delta', 'A1', DATE '2021-03-11', 0500, 0530, 100, 0, 0);
+INSERT INTO Flight VALUES (14, 'Delta', 'B2', DATE '2021-03-10', 0300, 0330, 100, 1, 2);
+INSERT INTO Flight VALUES (15, 'Delta', 'A1', DATE '2021-03-11', 0500, 0530, 100, 2, 1);
 INSERT INTO PassengerFlight VALUES (0, 14, 1, 0);
 INSERT INTO PassengerFlight VALUES (0, 15, 1, 0);
 INSERT INTO PassengerFlight VALUES (1, 14, 1, 0);
-INSERT INTO Flight VALUES (16, 'Delta', 'A2', DATE '2021-07-10', 0100, 0100, 100, 0, 0);
-INSERT INTO Flight VALUES (17, 'Delta', 'A3', DATE '2021-06-13', 0000, 0000, 100, 0, 0);
+INSERT INTO Flight VALUES (16, 'Delta', 'A2', DATE '2021-07-10', 0100, 0100, 100, 2, 1);
+INSERT INTO Flight VALUES (17, 'Delta', 'A3', DATE '2021-06-13', 0000, 0000, 100, 0, 1);
 INSERT INTO PassengerFlight VALUES (2, 16, 2, 0);
 INSERT INTO PassengerFlight VALUES (2, 17, 0, 1);
 INSERT INTO PassengerFlight VALUES (3, 16, 1, 0);
@@ -312,10 +312,10 @@ INSERT INTO PassengerFlight VALUES (3, 17, 3, 0);
 -- -- Should just be Cody
 
 --Data For Query 5--
-INSERT INTO Flight VALUES (21, 'Delta', 'A1', DATE '2021-03-01', 0200, 0400, 300, 1, 1);
+INSERT INTO Flight VALUES (21, 'Delta', 'A1', DATE '2021-03-01', 0200, 0400, 300, 1, 0);
 
 -- Test Student Trigger
-INSERT INTO Flight VALUES (18, 'Alaska', 'B1', DATE '2021-01-02', 0000, 0000, 100, 0, 0);
+INSERT INTO Flight VALUES (18, 'Alaska', 'B1', DATE '2021-01-02', 0000, 0000, 100, 0, 1);
 -- These two should succeed
 INSERT INTO PassengerFlight VALUES (0, 18, 1, 1); 
 INSERT INTO PassengerFlight VALUES (2, 18, 3, 1); 
@@ -324,8 +324,8 @@ INSERT INTO PassengerFlight VALUES (2, 18, 3, 1);
 -- UPDATE PassengerFlight SET passenger_id = 1 WHERE passenger_id = 2 AND flight_id = 18; 
 
 -- Test Overlap Trigger
-INSERT INTO Flight VALUES (19, 'Alaska', 'B2', DATE '2021-01-03', 0000, 0000, 100, 0, 0);
-INSERT INTO Flight VALUES (20, 'Alaska', 'A1', DATE '2021-01-03', 0100, 0100, 100, 0, 0);
+INSERT INTO Flight VALUES (19, 'Alaska', 'B2', DATE '2021-01-03', 0000, 0000, 100, 0, 1);
+INSERT INTO Flight VALUES (20, 'Alaska', 'A1', DATE '2021-01-03', 0100, 0100, 100, 0, 1);
 INSERT INTO PassengerFlight VALUES (0, 19, 1, 1);
 -- -- These should fail because the flights overlap
 -- INSERT INTO PassengerFlight VALUES (0, 20, 1, 1);
