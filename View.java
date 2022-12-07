@@ -1,3 +1,7 @@
+import java.sql.SQLException;
+import java.sql.Time;
+import java.util.Calendar;
+import java.sql.Date;
 import java.util.Scanner;
 
 public class View{
@@ -57,10 +61,202 @@ public class View{
 			input = scanner.nextLine();
 		}
 		if (input.equals("1")) {
-			// TODO: Update passenger via controller
+			// Update passenger
+			while (true){
+			System.out.println("\n----------------------------------------------\n"
+					+ "Please provide Passenger ID to update or type 'exit' to leave\n");
+			String idToUpdateString = scanner.nextLine().strip();
+			if ("exit".equals(idToUpdateString))
+				break;
+			Integer idToUpdate = 0;
+			try{
+				idToUpdate = Integer.valueOf(idToUpdateString);
+			}catch(Exception e){
+				System.out.println("Invalid ID. Please enter a numeric value\n");
+				continue;
+			}
+
+			System.out.println("\n----------------------------------------------\n"
+					+ "Please provide following updated values\n");
+			System.out.println("Name: ");
+			String name = scanner.nextLine().strip();
+			if (name.length() == 0){
+				System.out.println("Name cannot be empty. Try again.\n");
+				continue;
+			}
+
+			System.out.println();
+			boolean frequent = false, student = false, third = false;
+			System.out.println("Frequent Flier? (y/n): ");
+			String temp = scanner.nextLine().strip();
+			if ("y".equals(temp)){
+				frequent = true;
+			}
+			System.out.println();
+
+			System.out.println("Student?: ");
+			temp = scanner.nextLine().strip();
+			if ("y".equals(temp)){
+				student = true;
+			}
+			System.out.println();
+
+			System.out.println("Third Category?: ");
+			temp = scanner.nextLine().strip();
+			if ("y".equals(temp)){
+				third = true;
+			}
+			System.out.println();
+
+			try{
+				controller.updatePassenger(idToUpdate, name, frequent, 
+				student, third);
+			} catch(Exception e){
+				System.out.println("There was an error while updating the table. "
+				+ "Please see the error below and try again\n");
+				System.out.println("Error:\n" + e.getMessage()+"\n");
+				continue;
+			}
+			System.out.println("Success\n");
+			break;
+		}
 		}
 		else if (input.equals("2")) {
-			// TODO: Update flight via controller
+			// Update flight
+			while(true){
+			String[] updatedValues = new String[7];
+			System.out.println("\n----------------------------------------------\n"
+					+ "Please provide Flight ID to update or type 'exit' to leave\n");
+			String idToUpdateString = scanner.nextLine().strip();
+			if ("exit".equals(idToUpdateString))
+				break;
+			Integer idToUpdate = 0;
+			try{
+				idToUpdate = Integer.valueOf(idToUpdateString);
+			}catch(Exception e){
+				System.out.println("Invalid ID. Please enter a numeric value\n");
+				continue;
+			}
+			System.out.println("\n----------------------------------------------\n"
+					+ "Please provide following updated values\n");
+			System.out.println("Airline Name: ");
+			String name = scanner.nextLine().strip();
+			if (name.length() == 0){
+				System.out.println("Name cannot be empty. Try again.\n");
+				continue;
+			}
+			System.out.println();
+
+			System.out.println("Boarding Gate: ");
+			String gate = scanner.nextLine().strip();
+			if (gate.length() == 0){
+				System.out.println("Gate cannot be empty. Try again.\n");
+				continue;
+			}
+
+			System.out.println();
+			System.out.println("Flight Date (yyyy-mm-dd): ");
+			String[] dateString = scanner.nextLine().strip().split("-");
+			Date date = null;
+			Calendar calendarDate = null;
+			if (dateString.length != 3){
+				System.out.println("Invalid date. Try again.\n");
+				continue;
+			}
+			else{
+				try{
+					Calendar c = Calendar.getInstance();
+					c.set(Integer.valueOf(dateString[0]), Integer.valueOf(dateString[1]), Integer.valueOf(dateString[2]));
+					date = new Date(c.getTimeInMillis());
+					calendarDate = c;
+				}catch(Exception e){
+					System.out.println("Invalid date. Try again.\n");
+					continue;
+				}
+			}
+			System.out.println();
+
+			Time boardingTime = null;
+			System.out.println("Boarding Time (HHMM): ");
+			String boardingTimeString = scanner.nextLine().strip();
+			if (boardingTimeString.length() != 4){
+				System.out.println("Invalid time. Try again.\n");
+				continue;
+			}
+			else{
+				try{
+					calendarDate.set(Calendar.HOUR_OF_DAY, Integer.valueOf(boardingTimeString.substring(0,3)));
+					calendarDate.set(Calendar.MINUTE, Integer.valueOf(boardingTimeString.substring(3,5)));
+					boardingTime = new Time(calendarDate.getTimeInMillis());
+				}catch (Exception e){
+					System.out.println("Invalid time. Try again.\n");
+					continue;
+				}
+			}
+			System.out.println();
+
+			Time departingTime = null;
+			System.out.println("Departing Time (HHMM): ");
+			String departingTimeString = scanner.nextLine().strip();
+			if (departingTimeString.length() != 4){
+				System.out.println("Invalid time. Try again.\n");
+				continue;
+			}
+			else{
+				try{
+					calendarDate.set(Calendar.HOUR_OF_DAY, Integer.valueOf(departingTimeString.substring(0,3)));
+					calendarDate.set(Calendar.MINUTE, Integer.valueOf(departingTimeString.substring(3,5)));
+					departingTime = new Time(calendarDate.getTimeInMillis());
+				}catch (Exception e){
+					System.out.println("Invalid time. Try again.\n");
+					continue;
+				}
+			}
+			System.out.println();
+
+			System.out.println("Time Interval (in minutes): ");
+			String intervalString = scanner.nextLine().strip();
+			Integer interval = 0;
+			try{
+				interval = Integer.valueOf(intervalString);
+			}catch(Exception e){
+				System.out.println("Invalid interval. Please enter a numeric value\n");
+				continue;
+			}
+			System.out.println();
+
+			System.out.println("Airport ID Of Departure : ");
+			String airportFromString = scanner.nextLine().strip();
+			Integer airportFrom = 0;
+			try{
+				airportFrom = Integer.valueOf(airportFromString);
+			}catch(Exception e){
+				System.out.println("Invalid ID. Please enter a numeric value\n");
+				continue;
+			}
+			System.out.println();
+
+			System.out.println("Airport ID Of Arrival : ");
+			String airportToString = scanner.nextLine().strip();
+			Integer airportTo = 0;
+			try{
+				airportTo = Integer.valueOf(airportToString);
+			}catch(Exception e){
+				System.out.println("Invalid ID. Please enter a numeric value\n");
+				continue;
+			}
+			System.out.println();
+
+			try{
+				controller.updateFlight(idToUpdate, name, gate, date, boardingTime,
+				departingTime, interval, airportFrom, airportTo);
+			} catch(Exception e){
+				System.out.println("There was an error while updating the table. "
+				+ "Please see the error below and try again\n");
+				System.out.println("Error:\n" + e.getMessage()+"\n");
+			}
+			break;
+		}
 		}
 	}
 	
