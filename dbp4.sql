@@ -9,7 +9,6 @@ DROP TABLE Staff;
 DROP TABLE Passenger;
 DROP TABLE Flight;
 DROP TABLE BoardingGate;
-DROP TABLE AirlineAirport;
 DROP TABLE Airport;
 DROP TABLE Airline;
 
@@ -24,12 +23,6 @@ CREATE TABLE Airport (
     airport_name VARCHAR(100) NOT NULL,
     airport_code CHAR(3) NOT NULL,
     location VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE AirlineAirport (
-  airline VARCHAR(9) NOT NULL REFERENCES Airline (name) ON DELETE CASCADE,
-  airport_id INTEGER NOT NULL REFERENCES Airport (airport_id) ON DELETE CASCADE,
-  CONSTRAINT airlineport_pk PRIMARY KEY (airline, airport_id)
 );
 
 CREATE TABLE BoardingGate (
@@ -54,7 +47,6 @@ CREATE TABLE Flight (
     dest_from INTEGER NOT NULL,
     dest_to INTEGER NOT NULL REFERENCES Airport (airport_id) ON DELETE CASCADE,
     CONSTRAINT flight_fk_boardgate FOREIGN KEY (boarding_gate, dest_from) REFERENCES BoardingGate (boarding_gate, airport_id) ON DELETE CASCADE,
-    CONSTRAINT flight_fk_airlineport FOREIGN KEY (airline, dest_from) REFERENCES AirlineAirport (airline, airport_id) ON DELETE CASCADE,
     CONSTRAINT flight_uniq_bddt UNIQUE (boarding_gate, dest_from, flight_date, departing_time),
     CONSTRAINT flight_valid_board_depart CHECK (boarding_time <= departing_time),
     -- Assert that "departing_time" + "duration" < 2400, but added as 24 hour times instead of integers
@@ -81,11 +73,8 @@ CREATE TABLE Passenger (
     -- This 100% should be an attribute of (airline, passenger), but it's not!  for some reason!
     frequent_flier NUMBER(1) NOT NULL CHECK (frequent_flier in (0, 1)),
     student NUMBER(1) NOT NULL CHECK (student in (0, 1)),
-    third_category NUMBER(1) NOT NULL CHECK (third_category in (0, 1))
+    minor NUMBER(1) NOT NULL CHECK (minor in (0, 1))
 );
--- Notes:
---   - "third_category" has to be replaced with a third category.
---       It might go in PassengerAirline or PassengerFlight.
 
 CREATE TABLE Staff (
     employee_id INTEGER NOT NULL PRIMARY KEY,
@@ -185,8 +174,6 @@ CREATE TABLE StaffFlight (
     flight_id INTEGER NOT NULL REFERENCES Flight (flight_id) ON DELETE CASCADE,
     CONSTRAINT sflight_pk PRIMARY KEY (employee_id, flight_id)
 );
--- Notes:
---   - This is soooo boring.  It's not even used in any of the queries.
 
 GRANT SELECT ON Airline TO PUBLIC; 
 GRANT SELECT ON Flight TO PUBLIC; 
@@ -223,10 +210,6 @@ INSERT INTO BoardingGate VALUES ('A2', 0);
 INSERT INTO BoardingGate VALUES ('A3', 0);
 INSERT INTO BoardingGate VALUES ('B1', 0);
 INSERT INTO BoardingGate VALUES ('B2', 0);
-INSERT INTO AirlineAirport VALUES ('Alaska', 0);
-INSERT INTO AirlineAirport VALUES ('Delta', 0);
-INSERT INTO AirlineAirport VALUES ('Southwest', 0);
-INSERT INTO AirlineAirport VALUES ('United', 0);
 
 -- Test Flights
 -- Data for Query 1
@@ -253,10 +236,20 @@ INSERT INTO PassengerFlight VALUES (3, 2, 1, 0);
 -- -- Should give only Avia
 
 -- Data for Query 2
--- I have no clue what this is asking.  I'm skipping this.
 INSERT INTO Flight VALUES (4, 'Southwest', 'B2', DATE '2021-03-14', 0314, 0345, 314, 0, 0);
 INSERT INTO Flight VALUES (5, 'Southwest', 'A1', DATE '2021-03-17', 0615, 0630, 500, 0, 0);
 INSERT INTO Flight VALUES (6, 'Alaska', 'A2', DATE '2021-03-14', 0700, 1730, 500, 0, 0);
+INSERT INTO PassengerFlight VALUES (4, 4, 2, 0);
+INSERT INTO PassengerFlight VALUES (5, 5, 2, 1);
+INSERT INTO PassengerFlight VALUES (6, 6, 3, 1);
+INSERT INTO PassengerFlight VALUES (7, 6, 1, 0);
+SELECT name, bags_checked
+  FROM Passenger 
+    NATURAL JOIN PassengerFlight 
+    NATURAL JOIN Flight
+  WHERE flight_date = TO_DATE(14 || '-MAR-21')  -- Replace 14 with input date
+  ORDER BY flight_id, bags_checked;
+
 
 -- Data for Query 3
 INSERT INTO Flight VALUES (7, 'Alaska', 'A3', DATE '2021-06-12', 0612, 0700, 100, 0, 0);
@@ -337,3 +330,5 @@ INSERT INTO PassengerFlight VALUES (0, 19, 1, 1);
 
 -- TODO:
 --  - Put staff in flights or whatever.  Idk, we'll probably be graded on it or whatever.
+
+COMMIT;
