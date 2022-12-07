@@ -1036,7 +1036,7 @@ public class Controller {
     |  Returns:  None
     *-------------------------------------------------------------------*/
 	public static void getPassengers() throws SQLException {
-		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM Passenger ORDER BY passenger_id");
+		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM chasehult.Passenger ORDER BY passenger_id");
 		System.out.println("PID  Passenger Name                  Frequent Flier  Student  Minor");
 		System.out.println("---  ------------------------------  --------------  -------  -----");
 		while (answer.next()) {
@@ -1064,12 +1064,17 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	@SuppressWarnings("deprecation")
 	public static void getFlights() throws SQLException {
-		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM Flight ORDER BY flight_id");
+		ResultSet answer = dbconn.createStatement().executeQuery(""
+				+ "SELECT chasehult.Flight.*, apf.airport_code AS from_code, apt.airport_code AS to_code"
+				+ " FROM chasehult.Flight"
+				+ "  JOIN chasehult.Airport apf ON (dest_from = apf.airport_id)"
+				+ "  JOIN chasehult.Airport apt ON (dest_from = apt.airport_id)"
+				+ " ORDER BY flight_id");
 		System.out.println("FID   Airline   GATE  DATE   BOARDING  DEPARTING  DURATION  FROM  TO ");
 		System.out.println("---  ---------  ----  -----  --------  ---------  --------  ----  ---");
 		while (answer.next()) {
 			System.out.printf(
-					"%3d  %9s  %4s  %02d/%02d     %02d:%02d      %02d:%02d  %5d:%02d  %4d  %3d\n",
+					"%3d  %9s  %4s  %02d/%02d     %02d:%02d      %02d:%02d  %5d:%02d  %4s  %3s\n",
 					answer.getInt("flight_id"),
 					answer.getString("airline"),
 					answer.getString("boarding_gate"),
@@ -1081,8 +1086,8 @@ public class Controller {
 					answer.getInt("departing_time") % 100,
 					answer.getInt("duration") / 100,
 					answer.getInt("duration") % 100,
-					answer.getInt("dest_from"),
-					answer.getInt("dest_to")
+					answer.getInt("from_code"),
+					answer.getInt("to_code")
 			);
 		}
 	}
@@ -1099,7 +1104,7 @@ public class Controller {
     |  Returns:  None
     *-------------------------------------------------------------------*/
 	public static void getHistory(int passengerId) throws SQLException {
-		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM PassengerFlight WHERE passenger_id = " + passengerId + " ORDER BY flight_id");
+		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM chasehult.PassengerFlight WHERE passenger_id = " + passengerId + " ORDER BY flight_id");
 		System.out.println("FID  Bags Checked  Snacks?");
 		System.out.println("---  ------------  -------");
 		while (answer.next()) {
