@@ -281,7 +281,7 @@ public class View{
 		}
 	}
 
-		/*---------------------------------------------------------------------
+	/*---------------------------------------------------------------------
     |  Method insertBoardingGate(scanner)
     |
     |  Purpose:  Prompts the user with multiple questions regarding the insertion of boarding gate, user input is 
@@ -317,6 +317,46 @@ public class View{
 			Controller.insertBoardingGate(boardingGateID, airportID);
 		} catch (SQLException e) {
 			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	/*---------------------------------------------------------------------
+    |  Method updateBoardingGate(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the insertion of boarding gate, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void updateBoardingGate(Scanner scanner) {
+		System.out.println("Enter the ID for the gate to be update.");
+		String boardingGateIDString = scanner.nextLine();
+		while (!(isNumeric(boardingGateIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			boardingGateIDString = scanner.nextLine();
+		}
+		int boardingGateID = Integer.valueOf(boardingGateIDString);
+
+		System.out.println("Enter a the updated ID of the airport for the gate.");
+		String airportIDString = scanner.nextLine();
+		while (!(isNumeric(airportIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			airportIDString = scanner.nextLine();
+		}
+		int airportID = Integer.valueOf(airportIDString);
+
+		try {
+			Controller.updateBoardingGate(boardingGateID, airportID);
+		} catch (SQLException e) {
+			System.out.println("Update failed");
 			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
@@ -402,6 +442,59 @@ public class View{
 			Controller.insertStaff(employeeID, employeeName, employeeJob, employeeAirline);
 		} catch (SQLException e) {
 			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+		/*---------------------------------------------------------------------
+    |  Method updateStaff(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the update of staff member, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void updateStaff(Scanner scanner) {
+		System.out.println("Enter the ID for the employee to be updated.");
+		String employeeIDString = scanner.nextLine();
+		while (!(isNumeric(employeeIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			employeeIDString = scanner.nextLine();
+		}
+		int employeeID = Integer.valueOf(employeeIDString);
+
+		System.out.println("Enter an updated name for the passenger.");
+		String employeeName = scanner.nextLine();
+		while (employeeName.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			employeeName = scanner.nextLine();
+		}
+
+		System.out.println("Enter an updated job of the employee.");
+		String employeeJob = scanner.nextLine();
+		while (employeeJob.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			employeeJob = scanner.nextLine();
+		}
+
+		System.out.println("Enter the updated airline the employee is employed by.");
+		String employeeAirline = scanner.nextLine();
+		while (employeeAirline.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			employeeAirline = scanner.nextLine();
+		}
+
+		try {
+			Controller.updateStaff(employeeID, employeeName, employeeJob, employeeAirline);
+		} catch (SQLException e) {
+			System.out.println("Update failed");
 			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
@@ -607,7 +700,9 @@ public class View{
 				+ "----------------------------------------------\n"
 				+ "1: Passenger\n"
 				+ "2: Flight\n"
-				+ "3: Go Back\n");
+				+ "3: Staff\n"
+				+ "4: Boarding Gate\n"
+				+ "5: Go Back\n");
 		String input = scanner.nextLine();
 		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
@@ -809,6 +904,12 @@ public class View{
 			}
 			break;
 		}
+		}
+		else if (input.equals("3")) {
+			updateStaff(scanner);
+		}
+		else if (input.equals("4")) {
+			updateBoardingGate(scanner);
 		}
 	}
 	
