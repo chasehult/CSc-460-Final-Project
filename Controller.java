@@ -147,7 +147,7 @@ public class Controller{
 			String query = "SELECT DISTINCT flight_id, boarding_gate, airline, flight_date, "
 					+ "boarding_time, departing_time, duration, route "
 						+ "FROM " + prefix + ".Flight "
-						+ "WHERE flight_date = TO_DATE(" + date + " || '-JUN-21')"
+						+ "WHERE flight_date = TO_DATE(" + date + " || '-JUN-21') "
 					+ "ORDER BY boarding_time ASC";
 			
 			answer = stmt.executeQuery(query);
