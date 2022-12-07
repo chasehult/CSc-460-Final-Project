@@ -1328,7 +1328,6 @@ public class View{
     	
     	System.out.println("Welcome to our CSC460 JDBC interface!");
     	prefix = "chasehult"; //TODO: Add correct database prefix
-    	controller = new Controller();
 		Controller.login(args[0], args[1]);
     	prompt();
         Controller.close();
