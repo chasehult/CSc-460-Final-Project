@@ -1068,7 +1068,7 @@ public class Controller {
 				+ "SELECT chasehult.Flight.*, apf.airport_code AS from_code, apt.airport_code AS to_code"
 				+ " FROM chasehult.Flight"
 				+ "  JOIN chasehult.Airport apf ON (dest_from = apf.airport_id)"
-				+ "  JOIN chasehult.Airport apt ON (dest_from = apt.airport_id)"
+				+ "  JOIN chasehult.Airport apt ON (dest_to = apt.airport_id)"
 				+ " ORDER BY flight_id");
 		System.out.println("FID   Airline   GATE  DATE   BOARDING  DEPARTING  DURATION  FROM  TO ");
 		System.out.println("---  ---------  ----  -----  --------  ---------  --------  ----  ---");
