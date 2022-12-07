@@ -207,8 +207,16 @@ INSERT INTO BoardingGate VALUES ('B1', 0);
 INSERT INTO BoardingGate VALUES ('B2', 0);
 INSERT INTO Airport VALUES (1, 'Phoenix Sky Harbor International Airport', 'PHX', 'Phoenix, AZ');
 INSERT INTO BoardingGate VALUES ('A1', 1);
+INSERT INTO BoardingGate VALUES ('A2', 1);
+INSERT INTO BoardingGate VALUES ('A3', 1);
+INSERT INTO BoardingGate VALUES ('B1', 1);
+INSERT INTO BoardingGate VALUES ('B2', 1);
 INSERT INTO Airport VALUES (2, 'Salt Lake City International Airport', 'SLC', 'Salt Lake City, UT');
 INSERT INTO BoardingGate VALUES ('A1', 2);
+INSERT INTO BoardingGate VALUES ('A2', 2);
+INSERT INTO BoardingGate VALUES ('A3', 2);
+INSERT INTO BoardingGate VALUES ('B1', 2);
+INSERT INTO BoardingGate VALUES ('B2', 2);
 
 -- Test Flights
 -- Data for Query 1
