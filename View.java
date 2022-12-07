@@ -1210,10 +1210,20 @@ public class View{
 		}
 		switch (input) {
 			case "1":
-				controller.getPassengers();
+				try {
+					controller.getPassengers();
+				} catch (SQLException e) {
+					System.out.println("Query failed");
+					System.out.println("Error:\n" + e.getMessage()+"\n");
+				}
 				break;
 			case "2":
-				controller.getFlights();
+				try {
+					controller.getFlights();
+				} catch (SQLException e) {
+					System.out.println("Query failed");
+					System.out.println("Error:\n" + e.getMessage()+"\n");
+				}
 				break;
 			case "3":
 				String passengerID = "";
@@ -1225,8 +1235,12 @@ public class View{
 					passengerID = scanner.nextLine();
 				}
 				int passengerID1 = Integer.valueOf(passengerID); 
-
-				controller.getHistory(passengerID1);
+				try {
+					controller.getHistory(passengerID1);
+				} catch (SQLException e) {
+					System.out.println("Query failed");
+					System.out.println("Error:\n" + e.getMessage()+"\n");
+				}
 				break;
 			case "4":
 				break;
