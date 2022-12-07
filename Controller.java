@@ -906,7 +906,7 @@ public class Controller {
     |
     |  Returns:  None
     *-------------------------------------------------------------------*/
-	public static void updateStaff(int employeeId, String name, String job, String airport) throws SQLException {
+	public static void updateStaff(int employeeId, String name, String job, String airline) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE chasehult.Staff"
 				+ " SET name = ?, job = ?, employed_by = ?"
