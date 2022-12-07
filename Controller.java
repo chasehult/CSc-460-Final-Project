@@ -1086,8 +1086,8 @@ public class Controller {
 					answer.getInt("departing_time") % 100,
 					answer.getInt("duration") / 100,
 					answer.getInt("duration") % 100,
-					answer.getInt("from_code"),
-					answer.getInt("to_code")
+					answer.getString("from_code"),
+					answer.getString("to_code")
 			);
 		}
 	}
