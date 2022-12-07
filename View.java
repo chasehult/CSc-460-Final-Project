@@ -1265,8 +1265,8 @@ public class View{
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
 		while (!input.equals("5")) {
-			if (!isNumeric(input) || !(0 < Integer.valueOf(input) && Integer.valueOf(input) < 5)) {
-				System.out.println("Invalid input - please input a number from 1-5.");
+			if (!isNumeric(input) || !(0 < Integer.valueOf(input) && Integer.valueOf(input) < 6)) {
+				System.out.println("Invalid input - please input a number from 1-6.");
 			}
 			else {
 				switch (input) {
@@ -1293,7 +1293,8 @@ public class View{
 						+ "2: Delete a record\n"
 						+ "3: Update a record\n"
 						+ "4: Query the DB\n"
-						+ "5: Quit");
+						+ "5: List Data\n"
+						+ "6: Quit");
 			}
 			input = scanner.nextLine();
 		}
