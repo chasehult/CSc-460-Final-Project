@@ -99,7 +99,7 @@ public class View{
 			return false;
 		}
 		try {
-			double d = Double.parseDouble(strNum);
+			Double.parseDouble(strNum);
 		} catch (NumberFormatException e) {
 			return false;
 		}
@@ -780,8 +780,8 @@ public class View{
 				+ "5: Passenger Flight\n"
 				+ "6: Go Back\n");
 		String input = scanner.nextLine();
-		while (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5") || input.equals("6"))) {
-			System.out.println("Invalid input - please input a number from 1-3.");
+		while (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5"))) {
+			System.out.println("Invalid input - please input a number from 1-5.");
 			input = scanner.nextLine();
 		}
 		if (input.equals("1")) {
@@ -1208,42 +1208,32 @@ public class View{
 			System.out.println("Invalid input - please input a number from 1-6.");
 			input = scanner.nextLine();
 		}
-		switch (input) {
-			case "1":
-				try {
-					controller.getPassengers();
-				} catch (SQLException e) {
-					System.out.println("Query failed");
-					System.out.println("Error:\n" + e.getMessage()+"\n");
-				}
-				break;
-			case "2":
-				try {
-					controller.getFlights();
-				} catch (SQLException e) {
-					System.out.println("Query failed");
-					System.out.println("Error:\n" + e.getMessage()+"\n");
-				}
-				break;
-			case "3":
-				String passengerID = "";
-				
-				System.out.println("Please enter a day in June to check: ");
-				passengerID = scanner.nextLine();
-				while (!isNumeric(input) || passengerID.length() == 0) {
-					System.out.println("Invalid input - please enter a valid ID.");
+		try {
+			switch (input) {
+				case "1":
+					Controller.getPassengers();
+					break;
+				case "2":
+					Controller.getFlights();
+					break;
+				case "3":
+					String passengerID = "";
+					
+					System.out.println("Please enter a day in June to check: ");
 					passengerID = scanner.nextLine();
-				}
-				int passengerID1 = Integer.valueOf(passengerID); 
-				try {
-					controller.getHistory(passengerID1);
-				} catch (SQLException e) {
-					System.out.println("Query failed");
-					System.out.println("Error:\n" + e.getMessage()+"\n");
-				}
-				break;
-			case "4":
-				break;
+					while (!isNumeric(input) || passengerID.length() == 0) {
+						System.out.println("Invalid input - please enter a valid ID.");
+						passengerID = scanner.nextLine();
+					}
+	
+					Controller.getHistory(Integer.valueOf(passengerID));
+					break;
+				case "4":
+					break;
+			}
+		} catch (SQLException e) {
+			System.out.println("Update failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
 	
@@ -1269,14 +1259,14 @@ public class View{
 				+ "2: Delete a record\n"
 				+ "3: Update a record\n"
 				+ "4: Query the DB\n"
-				+ "5: List Data"
+				+ "5: List Data\n"
 				+ "6: Quit\n");
 		
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
-		while (!input.equals("5")) {
-			if (!isNumeric(input) || !(0 < Integer.valueOf(input) && Integer.valueOf(input) < 5)) {
-				System.out.println("Invalid input - please input a number from 1-5.");
+		while (!input.equals("6")) {
+			if (!isNumeric(input) || !(0 < Integer.valueOf(input) && Integer.valueOf(input) < 6)) {
+				System.out.println("Invalid input - please input a number from 1-6.");
 			}
 			else {
 				switch (input) {
@@ -1303,7 +1293,8 @@ public class View{
 						+ "2: Delete a record\n"
 						+ "3: Update a record\n"
 						+ "4: Query the DB\n"
-						+ "5: Quit");
+						+ "5: List Data\n"
+						+ "6: Quit");
 			}
 			input = scanner.nextLine();
 		}
