@@ -545,7 +545,7 @@ public class Controller {
 	public static void insertFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
-		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Flight VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Flight VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		pstmt.setInt(1, airportTo);
 		pstmt.setString(2, airlineName);
 		pstmt.setString(3, boardingGate);
@@ -585,7 +585,7 @@ public class Controller {
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "UPDATE Flight"
+				+ "UPDATE chasehult.Flight"
 				+ " SET airline = ?, boarding_gate = ?, flight_date = ?, boarding_time = ?, departing_time = ?,"
 				+ "     interval = ?, dest_from = ?, dest_to = ?"
 				+ " WHERE flight_id = ?"
@@ -619,7 +619,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void deleteFlight(int flightId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "DELETE FROM Flight"
+				+ "DELETE FROM chasehult.Flight"
 				+ " WHERE flight_id = ?"
 		);
 		pstmt.setInt(1, flightId);
@@ -646,7 +646,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void insertPassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
-		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?, ?)");
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Staff VALUES (?, ?, ?, ?, ?)");
 		pstmt.setInt(1, passengerId);
 		pstmt.setString(2, name);
 		pstmt.setInt(3, frequentFlier?1:0);
@@ -676,7 +676,7 @@ public class Controller {
 	public static void updatePassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "UPDATE Airport"
+				+ "UPDATE chasehult.Airport"
 				+ " SET name = ?, frequent_flier = ?, student = ?, minor = ?"
 				+ " WHERE airport_id = ?"
 		);
@@ -704,7 +704,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void deletePassenger(int passengerId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "DELETE FROM Passenger"
+				+ "DELETE FROM chasehult.Passenger"
 				+ " WHERE passenger_id = ?"
 		);
 		pstmt.setInt(1, passengerId);
@@ -729,7 +729,7 @@ public class Controller {
     |  Returns:  None
     *-------------------------------------------------------------------*/
 	public static void insertAirport(int airportId, String name, String airportCode, String location) throws SQLException {
-		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?)");
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Staff VALUES (?, ?, ?, ?)");
 		pstmt.setInt(1, airportId);
 		pstmt.setString(2, name);
 		pstmt.setString(3, airportCode);
@@ -757,7 +757,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void updateAirport(int airportId, String name, String airportCode, String location) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "UPDATE Airport"
+				+ "UPDATE chasehult.Airport"
 				+ " SET airport_name = ?, airport_code = ?, location = ?"
 				+ " WHERE airport_id = ?"
 		);
@@ -784,7 +784,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void deleteAirport(int airportId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "DELETE FROM Airport"
+				+ "DELETE FROM chasehult.Airport"
 				+ " WHERE airport_id = ?"
 		);
 		pstmt.setInt(1, airportId);
@@ -807,7 +807,7 @@ public class Controller {
     |  Returns:  None
     *-------------------------------------------------------------------*/
 	public static void insertBoardingGate(int gateId, int airport) throws SQLException {
-		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO BoardingGate VALUES (?, ?)");
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.BoardingGate VALUES (?, ?)");
 		pstmt.setInt(1, gateId);
 		pstmt.setInt(2, airport);
 		pstmt.executeQuery();
@@ -830,7 +830,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void updateBoardingGate(int gateId, int airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "UPDATE BoardingGate"
+				+ "UPDATE chasehult.BoardingGate"
 				+ " SET airport_id = ?"
 				+ " WHERE boarding_gate = ?"
 		);
@@ -855,7 +855,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void deleteBoardingGate(int gateId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "DELETE FROM BoardingGate"
+				+ "DELETE FROM chasehult.BoardingGate"
 				+ " WHERE boarding_gate = ?"
 		);
 		pstmt.setInt(1, gateId);
@@ -880,7 +880,7 @@ public class Controller {
     |  Returns:  None
     *-------------------------------------------------------------------*/
 	public static void insertStaff(int employeeId, String name, String job, String airline) throws SQLException {
-		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?)");
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Staff VALUES (?, ?, ?, ?)");
 		pstmt.setInt(1, employeeId);
 		pstmt.setString(2, name);
 		pstmt.setString(3, job);
@@ -908,7 +908,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void updateStaff(int employeeId, String name, String job, String airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "UPDATE Staff"
+				+ "UPDATE chasehult.Staff"
 				+ " SET name = ?, job = ?, employed_by = ?"
 				+ " WHERE employee_id = ?"
 		);
@@ -935,7 +935,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void deleteStaff(int employeeId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "DELETE FROM Staff"
+				+ "DELETE FROM chasehult.Staff"
 				+ " WHERE employee_id = ?"
 		);
 		pstmt.setInt(1, employeeId);
