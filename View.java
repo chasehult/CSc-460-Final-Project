@@ -247,7 +247,7 @@ public class View{
 			frequentFlierString = scanner.nextLine();
 		}
 		boolean frequentFlier = false;
-		if (frequentFlierString != "0") {
+		if (!frequentFlierString.equals("0")) {
 			frequentFlier = true;
 		}
 
@@ -258,7 +258,7 @@ public class View{
 			studentString = scanner.nextLine();
 		}
 		boolean student = false;
-		if (studentString != "0") {
+		if (!studentString.equals("0")) {
 			student = true;
 		}
 
@@ -277,6 +277,163 @@ public class View{
 			Controller.insertPassenger(passengerID, passengerName, frequentFlier, student, minor);
 		} catch (SQLException e) {
 			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+		/*---------------------------------------------------------------------
+    |  Method insertBoardingGate(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the insertion of boarding gate, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void insertBoardingGate(Scanner scanner) {
+		System.out.println("Enter a ID for the gate.");
+		String boardingGateIDString = scanner.nextLine();
+		while (!(isNumeric(boardingGateIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			boardingGateIDString = scanner.nextLine();
+		}
+		int boardingGateID = Integer.valueOf(boardingGateIDString);
+
+		System.out.println("Enter a ID of the airport for the gate.");
+		String airportIDString = scanner.nextLine();
+		while (!(isNumeric(airportIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			airportIDString = scanner.nextLine();
+		}
+		int airportID = Integer.valueOf(airportIDString);
+
+		try {
+			Controller.insertBoardingGate(boardingGateID, airportID);
+		} catch (SQLException e) {
+			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	/*---------------------------------------------------------------------
+    |  Method deleteBoardingGate(scanner)
+    |
+    |  Purpose:  Prompts the user with the boarding gate ID for the gate to be deleted, the
+	|			 controller is then called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void deleteBoardingGate(Scanner scanner) {
+		System.out.println("Enter a ID for the gate to be deleted.");
+		String boardingGateIDString = scanner.nextLine();
+		while (!(isNumeric(boardingGateIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			boardingGateIDString = scanner.nextLine();
+		}
+		int boardingGateID = Integer.valueOf(boardingGateIDString);
+		
+		try {
+			Controller.deleteBoardingGate(boardingGateID);
+		} catch (SQLException e) {
+			System.out.println("Deletion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	/*---------------------------------------------------------------------
+    |  Method insertStaff(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the insertion of staff member, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void insertStaff(Scanner scanner) {
+		System.out.println("Enter a ID for the employee.");
+		String employeeIDString = scanner.nextLine();
+		while (!(isNumeric(employeeIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			employeeIDString = scanner.nextLine();
+		}
+		int employeeID = Integer.valueOf(employeeIDString);
+
+		System.out.println("Enter a name for the passenger.");
+		String employeeName = scanner.nextLine();
+		while (employeeName.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			employeeName = scanner.nextLine();
+		}
+
+		System.out.println("Enter the job of the employee.");
+		String employeeJob = scanner.nextLine();
+		while (employeeJob.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			employeeJob = scanner.nextLine();
+		}
+
+		System.out.println("Enter the airline the employee is employed by.");
+		String employeeAirline = scanner.nextLine();
+		while (employeeAirline.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			employeeAirline = scanner.nextLine();
+		}
+
+		try {
+			Controller.insertStaff(employeeID, employeeName, employeeJob, employeeAirline);
+		} catch (SQLException e) {
+			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
+		}
+	}
+
+	/*---------------------------------------------------------------------
+    |  Method deleteStaff(scanner)
+    |
+    |  Purpose:  Prompts the user with the employeeID for the employee to be deleted, the
+	|			 controller is then called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void deleteStaff(Scanner scanner) {
+		System.out.println("Enter a ID for the employee to be deleted.");
+		String employeeIDString = scanner.nextLine();
+		while (!(isNumeric(employeeIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			employeeIDString = scanner.nextLine();
+		}
+		int employeeID = Integer.valueOf(employeeIDString);
+		
+		try {
+			Controller.deleteStaff(employeeID);
+		} catch (SQLException e) {
+			System.out.println("Deletion failed");
 			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
@@ -365,7 +522,9 @@ public class View{
 				+ "----------------------------------------------\n"
 				+ "1: Passenger\n"
 				+ "2: Flight\n"
-				+ "3: Go Back\n");
+				+ "3: Staff\n"
+				+ "4: Boarding Gate\n"
+				+ "5: Go Back\n");
 		String input = scanner.nextLine();
 		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
@@ -376,6 +535,12 @@ public class View{
 		}
 		else if (input.equals("2")) {
 			insertFlight(scanner);
+		}
+		else if (input.equals("3")) {
+			insertStaff(scanner);
+		}
+		else if (input.equals("4")) {
+			insertBoardingGate(scanner);
 		}
 		
 	}
@@ -400,6 +565,8 @@ public class View{
 				+ "----------------------------------------------\n"
 				+ "1: Passenger\n"
 				+ "2: Flight\n"
+				+ "3: Staff\n"
+				+ "4: Boarding Gate\n"
 				+ "3: Go Back\n");
 		String input = scanner.nextLine();
 		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
@@ -411,6 +578,12 @@ public class View{
 		}
 		else if (input.equals("2")) {
 			deleteFlight(scanner);
+		}
+		else if (input.equals("3")) {
+			deleteStaff(scanner);
+		}
+		else if (input.equals("4")) {
+			deleteBoardingGate(scanner);
 		}
 	}
 	
