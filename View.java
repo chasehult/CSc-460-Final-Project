@@ -1198,10 +1198,10 @@ public class View{
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which data would you like to see?\n"
 				+ "----------------------------------------------\n"
-				+ "1: List all passengers.\n\n"
-				+ "2: List all flights.\n\n"
-				+ "3: List a passengers History.\n\n"
-				+ "4: Go Back");
+				+ "1: List all passengers.\n"
+				+ "2: List all flights.\n"
+				+ "3: List a passengers History.\n"
+				+ "4: Go Back\n");
 		String input = scanner.nextLine();
 		while (!isNumeric(input) || !(Integer.valueOf(input) > 0 && Integer.valueOf(input) < 7)) {
 			System.out.println("Invalid input - please input a number from 1-6.");
@@ -1293,7 +1293,7 @@ public class View{
 						+ "3: Update a record\n"
 						+ "4: Query the DB\n"
 						+ "5: List Data\n"
-						+ "6: Quit");
+						+ "6: Quit\n");
 			}
 			input = scanner.nextLine();
 		}
