@@ -780,7 +780,7 @@ public class View{
 				+ "5: Passenger Flight\n"
 				+ "6: Go Back\n");
 		String input = scanner.nextLine();
-		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
+		while (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5") || input.equals("6"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
 			input = scanner.nextLine();
 		}
@@ -827,7 +827,7 @@ public class View{
 				+ "5: Passenger Flight\n"
 				+ "6: Go Back\n");
 		String input = scanner.nextLine();
-		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
+		while (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5") || input.equals("6"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
 			input = scanner.nextLine();
 		}
@@ -873,7 +873,7 @@ public class View{
 				+ "5: Passenger Flight\n"
 				+ "6: Go Back\n");
 		String input = scanner.nextLine();
-		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
+		while (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5") || input.equals("6"))) {
 			System.out.println("Invalid input - please input a number from 1-3.");
 			input = scanner.nextLine();
 		}
