@@ -1218,7 +1218,7 @@ public class View{
 				case "3":
 					String passengerID = "";
 					
-					System.out.println("Please enter a day in June to check: ");
+					System.out.println("Please enter a valid passenger id to check: ");
 					passengerID = scanner.nextLine();
 					while (!isNumeric(input) || passengerID.length() == 0) {
 						System.out.println("Invalid input - please enter a valid ID.");
