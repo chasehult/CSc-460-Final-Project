@@ -749,7 +749,7 @@ public class View{
 			}
 			System.out.println();
 
-			System.out.println("Third Category?: ");
+			System.out.println("Minor?: ");
 			temp = scanner.nextLine().strip();
 			if ("y".equals(temp)){
 				third = true;
