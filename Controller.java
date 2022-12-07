@@ -317,7 +317,7 @@ public class Controller {
 		}
 	}
 
-	public void close() {
+	public static void close() {
 		try {
 			dbconn.close();
 		} catch (SQLException e) {
@@ -326,7 +326,7 @@ public class Controller {
 		}
 	}
 
-	public void insertFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
+	public static void insertFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Flight VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -342,7 +342,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void updateFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
+	public static void updateFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
@@ -363,7 +363,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void deleteFlight(int flightId) throws SQLException {
+	public static void deleteFlight(int flightId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Flight"
 				+ " WHERE flight_id = ?"
@@ -372,7 +372,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void insertPassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
+	public static void insertPassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?, ?)");
 		pstmt.setInt(1, passengerId);
@@ -383,7 +383,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void updatePassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
+	public static void updatePassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE Airport"
@@ -398,7 +398,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void deletePassenger(int passengerId) throws SQLException {
+	public static void deletePassenger(int passengerId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Passenger"
 				+ " WHERE passenger_id = ?"
@@ -407,7 +407,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void insertAirport(int airportId, String name, String airportCode, String location) throws SQLException {
+	public static void insertAirport(int airportId, String name, String airportCode, String location) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?)");
 		pstmt.setInt(1, airportId);
 		pstmt.setString(2, name);
@@ -417,7 +417,7 @@ public class Controller {
 		
 	}
 
-	public void updateAirport(int airportId, String name, String airportCode, String location) throws SQLException {
+	public static void updateAirport(int airportId, String name, String airportCode, String location) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE Airport"
 				+ " SET airport_name = ?, airport_code = ?, location = ?"
@@ -430,7 +430,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void deleteAirport(int airportId) throws SQLException {
+	public static void deleteAirport(int airportId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Airport"
 				+ " WHERE airport_id = ?"
@@ -439,14 +439,14 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void insertBoardingGate(int gateId, int airport) throws SQLException {
+	public static void insertBoardingGate(int gateId, int airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO BoardingGate VALUES (?, ?)");
 		pstmt.setInt(1, gateId);
 		pstmt.setInt(2, airport);
 		pstmt.executeQuery();
 	}
 
-	public void updateBoardingGate(int gateId, int airport) throws SQLException {
+	public static void updateBoardingGate(int gateId, int airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE BoardingGate"
 				+ " SET airport_id = ?"
@@ -457,7 +457,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void deleteBoardingGate(int gateId) throws SQLException {
+	public static void deleteBoardingGate(int gateId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM BoardingGate"
 				+ " WHERE boarding_gate = ?"
@@ -466,7 +466,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void insertStaff(int employeeId, String name, String job, String airport) throws SQLException {
+	public static void insertStaff(int employeeId, String name, String job, String airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?)");
 		pstmt.setInt(1, employeeId);
 		pstmt.setString(2, name);
@@ -476,7 +476,7 @@ public class Controller {
 
 	}
 
-	public void updateStaff(int employeeId, String name, String job, String airport) throws SQLException {
+	public static void updateStaff(int employeeId, String name, String job, String airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE Staff"
 				+ " SET name = ?, job = ?, employed_by = ?"
@@ -489,7 +489,7 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public void deleteStaff(int employeeId) throws SQLException {
+	public static void deleteStaff(int employeeId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Staff"
 				+ " WHERE employee_id = ?"
