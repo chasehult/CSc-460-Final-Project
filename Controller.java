@@ -1024,4 +1024,88 @@ public class Controller {
 		pstmt.setInt(1, employeeId);
 		pstmt.executeQuery();
 	}
+	
+    /*---------------------------------------------------------------------
+    |  Method getPassengers()
+    |
+    |  Purpose:  Print all of the passengers.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void getPassengers() throws SQLException {
+		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM Passenger");
+		System.out.println("PID  Passenger Name                  Frequent Flier  Student  Minor");
+		System.out.println("---  ------------------------------  --------------  -------  -----");
+		while (answer.next()) {
+			System.out.printf(
+					"%3d  %30s  %14s  %7s  %5s",
+					answer.getInt("passenger_id"),
+					answer.getString("name"),
+					answer.getBoolean("frequent_flier")?"Yes":"No",
+					answer.getBoolean("student")?"Yes":"No",
+					answer.getBoolean("minor")?"Yes":"No"
+			);
+		}
+	}
+	
+    /*---------------------------------------------------------------------
+    |  Method getFlights()
+    |
+    |  Purpose:  Print all of the flights.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void getFlights() throws SQLException {
+		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM Flight");
+		System.out.println("FID   Airline   GATE  DATE   BOARDING  DEPARTING  DURATION  FROM  TO ");
+		System.out.println("---  ---------  ----  -----  --------  ---------  --------  ----  ---");
+		while (answer.next()) {
+			System.out.printf(
+					"%3d  %9s  %4s  %02d/%02d  %8d  %9d  %8d  %3d  %3d",
+					answer.getInt("flight_id"),
+					answer.getString("airline"),
+					answer.getString("boarding_gate"),
+					answer.getDate("flight_date").getMonth(),
+					answer.getDate("flight_date").getDay(),
+					answer.getInt("boarding_time"),
+					answer.getInt("departing_time"),
+					answer.getInt("duration"),
+					answer.getInt("dest_from"),
+					answer.getInt("dest_to")
+			);
+		}
+	}
+
+    /*---------------------------------------------------------------------
+    |  Method getHistory(passengerId)
+    |
+    |  Purpose:  Print the flight history of a passenger.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void getHistory(int passengerId) throws SQLException {
+		ResultSet answer = dbconn.createStatement().executeQuery("SELECT * FROM PassengerFlight WHERE passenger_id = " + passengerId);
+		System.out.println("FID  Bags Checked  Snacks?");
+		System.out.println("---  ------------  -------");
+		while (answer.next()) {
+			System.out.printf(
+					"%3d  %12d  %7s",
+					answer.getInt("flight_id"),
+					answer.getInt("bags_checked"),
+					answer.getBoolean("ordered_snacks")?"Yes":"No"
+			);
+		}
+	}
 }
