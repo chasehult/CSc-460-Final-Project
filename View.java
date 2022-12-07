@@ -66,7 +66,7 @@ public class View{
 	
 	private static void query(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
-				+ "Which type of record would you like to update?\n"
+				+ "Which type of query would you like to do?\n"
 				+ "----------------------------------------------\n"
 				+ "1: Display list of distinct passenger names who took flights from all \n"
 				+ "four airlines in 2021.\n\n"
