@@ -914,7 +914,7 @@ public class Controller {
 		);
 		pstmt.setString(1, name);
 		pstmt.setString(2, job);
-		pstmt.setString(3, airport);
+		pstmt.setString(3, airline);
 		pstmt.setInt(4, employeeId);
 		pstmt.executeQuery();
 	}
