@@ -66,7 +66,7 @@ public class View{
 	
 	private static void query(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
-				+ "Which type of record would you like to update?\n"
+				+ "Which type of query would you like to do?\n"
 				+ "----------------------------------------------\n"
 				+ "1: Display list of distinct passenger names who took flights from all \n"
 				+ "four airlines in 2021.\n\n"
@@ -100,7 +100,7 @@ public class View{
 				String date = "";
 				String airline = "";
 				
-				System.out.println("Please enter a day in June to check: ");
+				System.out.println("Please enter a day in March to check: ");
 				date = scanner.nextLine();
 				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 32)) {
 					System.out.println("Invalid input - please input a number from 1-31.");
@@ -113,7 +113,7 @@ public class View{
 			case "3":
 				date = "";
 				
-				System.out.println("Please enter a day in March to check: ");
+				System.out.println("Please enter a day in June to check: ");
 				date = scanner.nextLine();
 				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 31)) {
 					System.out.println("Invalid input - please input a number from 1-30.");
