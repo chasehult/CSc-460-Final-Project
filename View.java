@@ -162,17 +162,17 @@ public class View{
 			return;
 		}
 
-		System.out.println("Enter a boardingTime in format HHMM");
+		System.out.println("Enter a boardingTime in format HH:MM");
 		String boardingTime = scanner.nextLine();
-		while (boardingTime.length() == 0) {
+		while (boardingTime.length() == 0 || !boardingTime.matches("[0-1][0-9]:[0-6][0-9]")) {
 			System.out.println("Invalid input - please enter a valid boarding time.");
 			boardingTime = scanner.nextLine();
 		}
 		LocalTime sqlBoardingTime = LocalTime.parse(boardingTime);
 
-		System.out.println("Enter a departingTime in format HHMM");
+		System.out.println("Enter a departingTime in format HH:MM");
 		String departingTime = scanner.nextLine();
-		while (departingTime.length() == 0) {
+		while (departingTime.length() == 0 || !departingTime.matches("[0-1][0-9]:[0-6][0-9]")) {
 			System.out.println("Invalid input - please enter a valid departingTime.");
 			departingTime = scanner.nextLine();
 		}
@@ -205,6 +205,7 @@ public class View{
 			Controller.insertFlight(flightID, airlineName, boardingGate, sqlFlightDate, sqlBoardingTime, sqlDepartingTime, interval, airportFrom, airportTo);
 		} catch (SQLException e) {
 			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
 
@@ -276,6 +277,7 @@ public class View{
 			Controller.insertPassenger(passengerID, passengerName, frequentFlier, student, minor);
 		} catch (SQLException e) {
 			System.out.println("Insertion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
 
@@ -307,6 +309,7 @@ public class View{
 			Controller.deletePassenger(passengerID);
 		} catch (SQLException e) {
 			System.out.println("Deletion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
 
@@ -338,6 +341,7 @@ public class View{
 			Controller.deletePassenger(flightID);
 		} catch (SQLException e) {
 			System.out.println("Deletion failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
 
@@ -552,9 +556,9 @@ public class View{
 			System.out.println();
 
 			Time boardingTime = null;
-			System.out.println("Boarding Time (HHMM): ");
+			System.out.println("Boarding Time (HH:MM): ");
 			String boardingTimeString = scanner.nextLine().strip();
-			if (boardingTimeString.length() != 4){
+			if (boardingTimeString.length() != 5){
 				System.out.println("Invalid time. Try again.\n");
 				continue;
 			}
@@ -571,9 +575,9 @@ public class View{
 			System.out.println();
 
 			Time departingTime = null;
-			System.out.println("Departing Time (HHMM): ");
+			System.out.println("Departing Time (HH:MM): ");
 			String departingTimeString = scanner.nextLine().strip();
-			if (departingTimeString.length() != 4){
+			if (departingTimeString.length() != 5){
 				System.out.println("Invalid time. Try again.\n");
 				continue;
 			}
@@ -674,7 +678,7 @@ public class View{
 				+ "5: Custom Query\n\n"
 				+ "6: Go Back");
 		String input = scanner.nextLine();
-		while (!(Integer.valueOf(input) > 0 && Integer.valueOf(input) < 7)) {
+		while (!isNumeric(input) || !(Integer.valueOf(input) > 0 && Integer.valueOf(input) < 7)) {
 			System.out.println("Invalid input - please input a number from 1-6.");
 			input = scanner.nextLine();
 		}
@@ -688,7 +692,7 @@ public class View{
 				
 				System.out.println("Please enter a day in March to check: ");
 				date = scanner.nextLine();
-				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 32)) {
+				while (!isNumeric(input) || !(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 32)) {
 					System.out.println("Invalid input - please input a number from 1-31.");
 					date = scanner.nextLine();
 				}
@@ -701,7 +705,7 @@ public class View{
 				
 				System.out.println("Please enter a day in June to check: ");
 				date = scanner.nextLine();
-				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 31)) {
+				while (!isNumeric(input) || !(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 31)) {
 					System.out.println("Invalid input - please input a number from 1-30.");
 					date = scanner.nextLine();
 				}
@@ -739,7 +743,7 @@ public class View{
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
 		while (!input.equals("5")) {
-			if (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4"))) {
+			if (!isNumeric(input) || !(0 < Integer.valueOf(input) && Integer.valueOf(input) < 5)) {
 				System.out.println("Invalid input - please input a number from 1-5.");
 			}
 			else {
