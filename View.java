@@ -139,14 +139,14 @@ public class View{
 
 		System.out.println("Enter a boarding gate. EX: A1");
 		String boardingGate = scanner.nextLine();
-		while (boardingGate.length() == 0) {
+		while (boardingGate.length() == 0|| !boardingGate.matches("[a-zA-Z][0-9]")) {
 			System.out.println("Invalid input - please enter a valid Gate.");
 			boardingGate = scanner.nextLine();
 		}
 
 		System.out.println("Enter a flight date. Format: MM-dd-yyyy");
 		String flightDate = scanner.nextLine();
-		while (flightDate.length() == 0) {
+		while (flightDate.length() == 0 || !flightDate.matches("[0-1][0-9]-[0-3][0-9]-[0-9][0-9][0-9][0-9]")) {
 			System.out.println("Invalid input - please enter a valid Date.");
 			flightDate = scanner.nextLine();
 		}
