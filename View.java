@@ -178,12 +178,18 @@ public class View{
 	}
 	
     public static void main(String[] args){
-        //TODO use correct username and password or add user input for those
-        //Controller controller = new Controller("username", "password");
+    	if (args.length != 2) {    // get username/password from cmd line args
+		    System.out.println("\nUsage:  java JDBC <username> <password>\n"
+		                     + "    where <username> is your Oracle DBMS"
+		                     + " username,\n    and <password> is your Oracle"
+		                     + " password (not your system password).");
+		    System.exit(-1);
+		}
+    	
     	System.out.println("Welcome to our CSC460 JDBC interface!");
     	prefix = "chasehult"; //TODO: Add correct database prefix
+    	controller = new Controller(args[0], args[1]);
     	prompt();
-        //uncomment after fixing username/password issue above
-        //controller.close();
+        controller.close();
     }
 }
