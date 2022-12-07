@@ -292,9 +292,9 @@ public class Controller{
 			// The query to execute to oracle
             //SELECT DISTINCT Staff.employee_id, Staff.name FROM Airport JOIN Flight ON Flight.dest_from=Airport.airport_id JOIN Staff ON Flight.airline=Staff.employed_by WHERE Airport.airport_id = 1 ORDER By Staff.name;
 			String query = "SELECT DISTINCT Staff.employee_id, Staff.name "
-					+ "FROM " + prefix + ".Airport "
-							+ "JOIN " + prefix + ".Flight ON " + prefix + "Flight.dest_from=" + prefix + "Airport.airport_id"
-							+ "JOIN " + prefix + ".Staff ON " + prefix + "Flight.airline=" + prefix + "Staff.employed_by "
+					+ "FROM " + prefix + ".Airport"
+							+ " JOIN " + prefix + ".Flight ON " + prefix + ".Flight.dest_from=" + prefix + ".Airport.airport_id"
+							+ " JOIN " + prefix + ".Staff ON " + prefix + ".Flight.airline=" + prefix + ".Staff.employed_by "
 					+ "WHERE Airport.airport_id = " + airportID
 					+ " ORDER By Staff.name";
 			
@@ -317,7 +317,9 @@ public class Controller{
                     // Use next() to advance cursor through the result
                     // tuples and print their attribute values
 
-                while (answer.next()) System.out.println(answer.getString(1));
+                while (answer.next()) {
+                	System.out.println(answer.getString(1) + "\t" + answer.getString(2));
+                }
             }
             	System.out.println("=============\n");
             
