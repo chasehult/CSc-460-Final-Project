@@ -99,7 +99,7 @@ public class View{
 			return false;
 		}
 		try {
-			double d = Double.parseDouble(strNum);
+			Double.parseDouble(strNum);
 		} catch (NumberFormatException e) {
 			return false;
 		}
@@ -780,8 +780,8 @@ public class View{
 				+ "5: Passenger Flight\n"
 				+ "6: Go Back\n");
 		String input = scanner.nextLine();
-		while (!(input.equals("1") || input.equals("2") || input.equals("3"))) {
-			System.out.println("Invalid input - please input a number from 1-3.");
+		while (!(input.equals("1") || input.equals("2") || input.equals("3") || input.equals("4") || input.equals("5"))) {
+			System.out.println("Invalid input - please input a number from 1-5.");
 			input = scanner.nextLine();
 		}
 		if (input.equals("1")) {
@@ -1208,27 +1208,32 @@ public class View{
 			System.out.println("Invalid input - please input a number from 1-6.");
 			input = scanner.nextLine();
 		}
-		switch (input) {
-			case "1":
-				controller.getPassengers();
-				break;
-			case "2":
-				controller.getFlights();
-				break;
-			case "3":
-				String passengerID = "";
-				
-				System.out.println("Please enter a day in June to check: ");
-				passengerID = scanner.nextLine();
-				while (!isNumeric(input) || passengerID.length() == 0) {
-					System.out.println("Invalid input - please enter a valid ID.");
+		try {
+			switch (input) {
+				case "1":
+					Controller.getPassengers();
+					break;
+				case "2":
+					Controller.getFlights();
+					break;
+				case "3":
+					String passengerID = "";
+					
+					System.out.println("Please enter a day in June to check: ");
 					passengerID = scanner.nextLine();
-				}
-
-				controller.getHistory(passengerID);
-				break;
-			case "4":
-				break;
+					while (!isNumeric(input) || passengerID.length() == 0) {
+						System.out.println("Invalid input - please enter a valid ID.");
+						passengerID = scanner.nextLine();
+					}
+	
+					Controller.getHistory(Integer.valueOf(passengerID));
+					break;
+				case "4":
+					break;
+			}
+		} catch (SQLException e) {
+			System.out.println("Update failed");
+			System.out.println("Error:\n" + e.getMessage()+"\n");
 		}
 	}
 	
