@@ -177,7 +177,9 @@ CREATE TABLE StaffFlight (
 );
 
 GRANT SELECT ON Airline TO PUBLIC; 
-GRANT SELECT ON Flight TO PUBLIC; 
+GRANT SELECT ON Airport TO PUBLIC; 
+GRANT SELECT ON BoardingGate TO PUBLIC; 
+GRANT SELECT ON Passenger TO PUBLIC; 
 GRANT SELECT ON Passenger TO PUBLIC; 
 GRANT SELECT ON Staff TO PUBLIC; 
 GRANT SELECT ON PassengerAirline TO PUBLIC; 
@@ -262,8 +264,10 @@ INSERT INTO Flight VALUES (10, 'United', 'A1', DATE '2021-06-12', 0700, 0730, 13
 INSERT INTO Flight VALUES (11, 'Alaska', 'A2', DATE '2021-06-01', 0000, 0010, 100, 0, 0);
 INSERT INTO Flight VALUES (12, 'Alaska', 'A3', DATE '2021-06-01', 0110, 0120, 100, 0, 0);
 INSERT INTO Flight VALUES (13, 'Southwest', 'B1', DATE '2021-06-01', 0220, 0230, 100, 0, 0);
--- SELECT DISTINCT flight_id, boarding_gate, airline, flight_date, boarding_time, departing_time, duration, route
+-- SELECT DISTINCT flight_id, boarding_gate, airline, flight_date, boarding_time, departing_time, duration, apf.location AS "from", apt.location AS "to"
 --   FROM Flight
+--     JOIN Airport apf ON (dest_from = apf.airport_id)
+--     JOIN Airport apt ON (dest_to = apt.airport_id)
 --   WHERE flight_date = TO_DATE(12 || '-JUN-21')  -- Replace 12 with input date
 --   ORDER BY boarding_time ASC;
 
