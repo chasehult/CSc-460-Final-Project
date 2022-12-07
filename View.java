@@ -675,7 +675,10 @@ public class View{
 				+ "particular airline (of your choice) who: Traveled only once in the month \n"
 				+ "of March, Traveled with exactly one checked in bag anytime in the months \n"
 				+ "of June and July, Ordered snacks/beverages on at least on one flight\n\n"
-				+ "5: Custom Query\n\n"
+				+ "5: Given an airportID list all the staff member names and IDs that are involved with that\n"
+				+ "airport based on the airlines that work in that airport. Display the\n"
+				+ "employee_id and names of the staff members ordered by their names in\n"
+				+ "alphabetical order\n\n"
 				+ "6: Go Back");
 		String input = scanner.nextLine();
 		while (!isNumeric(input) || !(Integer.valueOf(input) > 0 && Integer.valueOf(input) < 7)) {
