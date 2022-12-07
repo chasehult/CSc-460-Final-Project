@@ -1082,7 +1082,7 @@ public class View{
 				+ "2: Delete a record\n"
 				+ "3: Update a record\n"
 				+ "4: Query the DB\n"
-				+ "5: List Data"
+				+ "5: List Data\n"
 				+ "6: Quit\n");
 		
 		Scanner scanner = new Scanner(System.in);
