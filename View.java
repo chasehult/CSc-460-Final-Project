@@ -1264,7 +1264,7 @@ public class View{
 		
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
-		while (!input.equals("5")) {
+		while (!input.equals("6")) {
 			if (!isNumeric(input) || !(0 < Integer.valueOf(input) && Integer.valueOf(input) < 6)) {
 				System.out.println("Invalid input - please input a number from 1-6.");
 			}
