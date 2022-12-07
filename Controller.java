@@ -150,7 +150,7 @@ public class Controller{
 					+ " FROM " + prefix + ".Flight"
 					+ " JOIN " + prefix + ".Airport apf ON (dest_from = apf.airport_id)"
 					+ " JOIN " + prefix + ".Airport apt ON (dest_to = apt.airport_id)"
-					+ " WHERE flight_date = TO_DATE(" + date + " || '-JUN-21') ORDER BY boarding_time ASC;";
+					+ " WHERE flight_date = TO_DATE(" + date + " || '-JUN-21') ORDER BY boarding_time ASC";
 			
 			answer = stmt.executeQuery(query);
 
@@ -165,6 +165,8 @@ public class Controller{
 
                 for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
                     System.out.print(answermetadata.getColumnName(i) + "\t");
+                    if (i == 3 || i == 8) System.out.print("\t");
+                    if (i == 8) System.out.print("\t");
                 }
                 System.out.println("\n---------------------------------------------------------");
 
@@ -172,9 +174,11 @@ public class Controller{
                     // tuples and print their attribute values
 
                 while (answer.next()) {
-                	System.out.println(answer.getString(1) + "\t" + answer.getString(2) + "\t" + 
-                			answer.getString(3) + "\t" + answer.getString(4) + "\t" + answer.getString(5) + "\t" + 
-                			answer.getString(6) + "\t" + answer.getString(7) + "\t" + answer.getString(8));
+                	System.out.print(answer.getString(1) + "\t\t" + answer.getString(2) + "\t\t" + answer.getString(3) + "\t");
+                	if (answer.getString(3).length() < 9) System.out.print("\t");
+                	System.out.print(answer.getString(4).subSequence(0, 10) + "\t" + answer.getString(5) + "\t\t" + 
+                			answer.getString(6) + "\t\t" + answer.getString(7) + "\t\t" + answer.getString(8)
+                			+ "\t\t" + answer.getString(9) + "\n");
                 }
             }
             	System.out.println("=========================================================\n");
@@ -182,6 +186,7 @@ public class Controller{
 			stmt.close();
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.out.println("Could not execute query three due to some SQL exception.");
 		}
 	}
