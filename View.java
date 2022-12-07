@@ -2,11 +2,201 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class View{
 	private static String prefix;
     private static Controller controller;
+
+	public static boolean isNumeric(String strNum) {
+		if (strNum == null) {
+			return false;
+		}
+		try {
+			double d = Double.parseDouble(strNum);
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+		return true;
+	}
+
+	private static void insertFlight(Scanner scanner) {
+		System.out.println("Enter a ID for the flight.");
+		String flightIDString = scanner.nextLine();
+		while (!(isNumeric(flightIDString))) {
+			System.out.println("Invalid input - please input a number from 1-3.");
+			flightIDString = scanner.nextLine();
+		}
+		int flightID = Integer.valueOf(flightIDString);
+
+		System.out.println("Enter a name for the airline.");
+		String airlineName = scanner.nextLine();
+		while (airlineName.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			airlineName = scanner.nextLine();
+		}
+
+		System.out.println("Enter a boarding gate. EX: A1");
+		String boardingGate = scanner.nextLine();
+		while (boardingGate.length() == 0) {
+			System.out.println("Invalid input - please enter a valid Gate.");
+			boardingGate = scanner.nextLine();
+		}
+
+		System.out.println("Enter a flight date. Format: MM-dd-yyyy");
+		String flightDate = scanner.nextLine();
+		while (flightDate.length() == 0) {
+			System.out.println("Invalid input - please enter a valid Date.");
+			flightDate = scanner.nextLine();
+		}
+
+		java.sql.Date sqlFlightDate = null;
+		try {
+			SimpleDateFormat sdf1 = new SimpleDateFormat("MM-dd-yyyy");
+			java.util.Date date1 = sdf1.parse(flightDate);
+			sqlFlightDate = new java.sql.Date(date1.getTime()); 
+		} catch (Exception e) {
+			System.out.println("Invalid Date");
+			System.out.println(e);
+			return;
+		}
+
+		System.out.println("Enter a boardingTime in format HHMM");
+		String boardingTime = scanner.nextLine();
+		while (boardingTime.length() == 0) {
+			System.out.println("Invalid input - please enter a valid boarding time.");
+			boardingTime = scanner.nextLine();
+		}
+		LocalTime sqlBoardingTime = LocalTime.parse(boardingTime);
+
+		System.out.println("Enter a departingTime in format HHMM");
+		String departingTime = scanner.nextLine();
+		while (departingTime.length() == 0) {
+			System.out.println("Invalid input - please enter a valid departingTime.");
+			departingTime = scanner.nextLine();
+		}
+		LocalTime sqlDepartingTime = LocalTime.parse(departingTime);
+
+		System.out.println("Enter an interval for the flight.");
+		String intervalString = scanner.nextLine();
+		while (intervalString.length() == 0 || !isNumeric(intervalString)) {
+			System.out.println("Invalid input - please enter a valid airport from ID.");
+			intervalString = scanner.nextLine();
+		}
+		int interval = Integer.valueOf(intervalString);
+
+		System.out.println("Enter an ID for the airport from for the flight.");
+		String airportFromString = scanner.nextLine();
+		while (airportFromString.length() == 0 || !isNumeric(airportFromString)) {
+			System.out.println("Invalid input - please enter a valid airport from ID.");
+			airportFromString = scanner.nextLine();
+		}
+		int airportFrom = Integer.valueOf(airportFromString);
+
+		System.out.println("Enter an ID for the airport to for the flight.");
+		String airportToString = scanner.nextLine();
+		while (airportToString.length() == 0 || !isNumeric(airportToString)) {
+			System.out.println("Invalid input - please enter a valid airport to ID.");
+			airportToString = scanner.nextLine();
+		}
+		int airportTo = Integer.valueOf(airportToString);
+		try {
+			Controller.insertFlight(flightID, airlineName, boardingGate, sqlFlightDate, sqlBoardingTime, sqlDepartingTime, interval, airportFrom, airportTo);
+		} catch (SQLException e) {
+			System.out.println("Insertion failed");
+		}
+	}
+
+	private static void insertPassenger(Scanner scanner) {
+		System.out.println("Enter a ID for the passenger.");
+		String passengerIDString = scanner.nextLine();
+		while (!(isNumeric(passengerIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			passengerIDString = scanner.nextLine();
+		}
+		int passengerID = Integer.valueOf(passengerIDString);
+
+		System.out.println("Enter a name for the passenger.");
+		String passengerName = scanner.nextLine();
+		while (passengerName.length() == 0) {
+			System.out.println("Invalid input - please enter a valid name.");
+			passengerName = scanner.nextLine();
+		}
+
+		System.out.println("Is the passenger a frequent flier. Type 1 if yes, 0 if no.");
+		String frequentFlierString = scanner.nextLine();
+		while (frequentFlierString.length() != 1 || !isNumeric(frequentFlierString)) {
+			System.out.println("Invalid input - please enter 1 or 0.");
+			frequentFlierString = scanner.nextLine();
+		}
+		boolean frequentFlier = false;
+		if (frequentFlierString != "0") {
+			frequentFlier = true;
+		}
+
+		System.out.println("Is the passenger a student. Type 1 if yes, 0 if no.");
+		String studentString = scanner.nextLine();
+		while (studentString.length() != 1 || !isNumeric(studentString)) {
+			System.out.println("Invalid input - please enter 1 or 0.");
+			studentString = scanner.nextLine();
+		}
+		boolean student = false;
+		if (studentString != "0") {
+			student = true;
+		}
+
+		System.out.println("Is the passenger a minor. Type 1 if yes, 0 if no.");
+		String minorString = scanner.nextLine();
+		while (minorString.length() != 1 || !isNumeric(minorString)) {
+			System.out.println("Invalid input - please enter 1 or 0.");
+			minorString = scanner.nextLine();
+		}
+		boolean minor = false;
+		if (minorString != "0") {
+			minor = true;
+		}
+
+		try {
+			Controller.insertPassenger(passengerID, passengerName, frequentFlier, student, minor);
+		} catch (SQLException e) {
+			System.out.println("Insertion failed");
+		}
+	}
+
+	private static void deletePassenger(Scanner scanner) {
+		System.out.println("Enter a ID for the passenger to be deleted.");
+		String passengerIDString = scanner.nextLine();
+		while (!(isNumeric(passengerIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			passengerIDString = scanner.nextLine();
+		}
+		int passengerID = Integer.valueOf(passengerIDString);
+		
+		try {
+			Controller.deletePassenger(passengerID);
+		} catch (SQLException e) {
+			System.out.println("Deletion failed");
+		}
+	}
+
+	private static void deleteFlight(Scanner scanner) {
+		System.out.println("Enter a ID for the passenger to be deleted.");
+		String flightIDString = scanner.nextLine();
+		while (!(isNumeric(flightIDString))) {
+			System.out.println("Invalid input - please input a number.");
+			flightIDString = scanner.nextLine();
+		}
+		int flightID = Integer.valueOf(flightIDString);
+		
+		try {
+			Controller.deletePassenger(flightID);
+		} catch (SQLException e) {
+			System.out.println("Deletion failed");
+		}
+	}
+
 	private static void recordInsert(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which type of record would you like to insert?\n"
@@ -20,10 +210,10 @@ public class View{
 			input = scanner.nextLine();
 		}
 		if (input.equals("1")) {
-			// TODO: Insert passenger via controller
+			insertPassenger(scanner);
 		}
 		else if (input.equals("2")) {
-			// TODO: Insert flight via controller
+			insertFlight(scanner);
 		}
 		
 	}
@@ -41,10 +231,10 @@ public class View{
 			input = scanner.nextLine();
 		}
 		if (input.equals("1")) {
-			// TODO: Delete passenger via controller
+			deletePassenger(scanner);
 		}
 		else if (input.equals("2")) {
-			// TODO: Delete flight via controller
+			deleteFlight(scanner);
 		}
 	}
 	
@@ -320,7 +510,15 @@ public class View{
 				Controller.executeQueryFour(prefix);
 				break;
 			case "5":
-				
+				String airport = "";
+				System.out.println("Please enter an Airport ID: ");
+				airport = scanner.nextLine();
+				while (!(isNumeric(airport))) {
+					System.out.println("Invalid input - please enter a number ID.");
+					airport = scanner.nextLine();
+				}
+
+				Controller.executeQueryFive(prefix, airport);
 				break;
 			case "6":
 				break;
