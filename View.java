@@ -109,7 +109,7 @@ public class View{
 			System.out.println();
 
 			try{
-				controller.updatePassenger(idToUpdate, name, frequent, 
+				Controller.updatePassenger(idToUpdate, name, frequent, 
 				student, third);
 			} catch(Exception e){
 				System.out.println("There was an error while updating the table. "
@@ -124,7 +124,6 @@ public class View{
 		else if (input.equals("2")) {
 			// Update flight
 			while(true){
-			String[] updatedValues = new String[7];
 			System.out.println("\n----------------------------------------------\n"
 					+ "Please provide Flight ID to update or type 'exit' to leave\n");
 			String idToUpdateString = scanner.nextLine().strip();
@@ -248,8 +247,8 @@ public class View{
 			System.out.println();
 
 			try{
-				controller.updateFlight(idToUpdate, name, gate, date, boardingTime,
-				departingTime, interval, airportFrom, airportTo);
+				Controller.updateFlight(idToUpdate, name, gate, date, boardingTime.toLocalTime(),
+				departingTime.toLocalTime(), interval, airportFrom, airportTo);
 			} catch(Exception e){
 				System.out.println("There was an error while updating the table. "
 				+ "Please see the error below and try again\n");
@@ -290,7 +289,7 @@ public class View{
 		}
 		switch (input) {
 			case "1":
-				controller.executeQueryOne(prefix);
+				Controller.executeQueryOne(prefix);
 				break;
 			case "2":
 				String date = "";
@@ -304,7 +303,7 @@ public class View{
 				}
 				System.out.println("Please enter an airline to check: ");
 				airline = scanner.nextLine();
-				controller.executeQueryTwo(prefix, date, airline);
+				Controller.executeQueryTwo(prefix, date, airline);
 				break;
 			case "3":
 				date = "";
@@ -315,10 +314,10 @@ public class View{
 					System.out.println("Invalid input - please input a number from 1-30.");
 					date = scanner.nextLine();
 				}
-				controller.executeQueryThree(prefix, date);
+				Controller.executeQueryThree(prefix, date);
 				break;
 			case "4":
-				controller.executeQueryFour(prefix);
+				Controller.executeQueryFour(prefix);
 				break;
 			case "5":
 				
@@ -384,8 +383,9 @@ public class View{
     	
     	System.out.println("Welcome to our CSC460 JDBC interface!");
     	prefix = "chasehult"; //TODO: Add correct database prefix
-    	controller = new Controller(args[0], args[1]);
+    	controller = new Controller();
+		Controller.login(args[0], args[1]);
     	prompt();
-        controller.close();
+        Controller.close();
     }
 }
