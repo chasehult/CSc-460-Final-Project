@@ -546,7 +546,7 @@ public class Controller {
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Flight VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		pstmt.setInt(1, airportTo);
+		pstmt.setInt(1, flightId);
 		pstmt.setString(2, airlineName);
 		pstmt.setString(3, boardingGate);
 		pstmt.setDate(4, flightDate);
