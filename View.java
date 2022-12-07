@@ -1,3 +1,30 @@
+/*=============================================================================
+ |   Assignment:  Program #4:
+ |		 	File: View.java
+ |       Authors: Chase Hult
+ |				  Rebekah Julicher
+ |				  Felipe Lopez
+ |				  Davlat Uralov
+ |       Grader:  L. McCann
+ |
+ |       Course:  CSC 460
+ |   Instructor:  L. McCann
+ |     Due Date:  12/05/2022 3:30 PM
+ |
+ |  Description:  This program is the view of our system. The view prompts the user with console prompts. The view then 
+ |				  collects the user input to determine what methods in the controller to call. The calls to the controller
+ |				  then prints the appropriate output based on the input of the user.
+ |				  
+ |
+ |     Language:  Java (JDK 1.6)
+ |     Packages:  java.sql.*
+ |				  java.util*
+ |			  	  java.time.LocalTime
+ |				  java.text.SimpleDateFormat
+ |                
+ | Deficiencies:  We are not aware of unsatisfied requirements or logical errors.
+ *===========================================================================*/
+
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Calendar;
@@ -6,22 +33,94 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Scanner;
 
+
+/*+----------------------------------------------------------------------
+||
+||  Class View
+||
+||       Authors: Chase Hult
+||				  Rebekah Julicher
+||				  Felipe Lopez
+||				  Davlat Uralov
+||		  
+||    Inspired By: Professor L. McCann
+||
+||        Purpose:  This class has a main function which creates a controller to establish a connection to the database and
+||					runs a loop that will read in user input to interact with the database through the controller based on the
+||					user input.
+||
+||  Inherits From:  None
+||
+||     Interfaces:  None
+||
+|+-----------------------------------------------------------------------
+||
+||      Constants: None
+||
+|+-----------------------------------------------------------------------
+||
+||   Constructors:  The default constructor, no arguments.
+||
+||  Class Methods:  None.
+||
+||  Inst. Methods:  boolean isNumeric(String strNum)
+||                  void insertFlight(Scanner scanner)
+||                  void insertPassenger(Scanner scanner)
+||                  void deletePassenger(Scanner scanner)
+||                  void deleteFlight(Scanner scanner)
+||                  void recordInsert(Scanner scanner)
+||					void recordDelete(Scanner scanner)
+||					void recordUpdate(Scanner scanner)
+||					void query(Scanner scanner)
+||                  void prompt()
+||					void main(String[] args)
+||                  
+++-----------------------------------------------------------------------*/
 public class View{
 	private static String prefix;
     private static Controller controller;
 
+    /*---------------------------------------------------------------------
+    |  Method isNumeric(strNum)
+    |
+    |  Purpose:  Checks if the string passed is a number for data integrity purposes.
+    |
+    |  Pre-condition:  None
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      strNum - The string to check
+    |
+    |  Returns:  Boolean that indicates if string is a number.
+    *-------------------------------------------------------------------*/
 	public static boolean isNumeric(String strNum) {
 		if (strNum == null) {
 			return false;
 		}
 		try {
 			double d = Double.parseDouble(strNum);
-		} catch (NumberFormatException nfe) {
+		} catch (NumberFormatException e) {
 			return false;
 		}
 		return true;
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertFlight(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the insertion of flight, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void insertFlight(Scanner scanner) {
 		System.out.println("Enter a ID for the flight.");
 		String flightIDString = scanner.nextLine();
@@ -109,6 +208,21 @@ public class View{
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertPassenger(scanner)
+    |
+    |  Purpose:  Prompts the user with multiple questions regarding the insertion of passenger, user input is 
+	|			 collected with a scanner and the controller is called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void insertPassenger(Scanner scanner) {
 		System.out.println("Enter a ID for the passenger.");
 		String passengerIDString = scanner.nextLine();
@@ -165,6 +279,21 @@ public class View{
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method deletePassenger(scanner)
+    |
+    |  Purpose:  Prompts the user with the passengerID for the passenger to be deleted, the
+	|			 controller is then called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void deletePassenger(Scanner scanner) {
 		System.out.println("Enter a ID for the passenger to be deleted.");
 		String passengerIDString = scanner.nextLine();
@@ -181,6 +310,21 @@ public class View{
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method deleteFlight(scanner)
+    |
+    |  Purpose:  Prompts the user with the flight to be deleted, the
+	|			 controller is then called accordingly.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void deleteFlight(Scanner scanner) {
 		System.out.println("Enter a ID for the passenger to be deleted.");
 		String flightIDString = scanner.nextLine();
@@ -197,6 +341,20 @@ public class View{
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method deleteFlight(scanner)
+    |
+    |  Purpose:  Prompts the user with options on what table the user wants to insert data to.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void recordInsert(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which type of record would you like to insert?\n"
@@ -218,6 +376,20 @@ public class View{
 		
 	}
 	
+	/*---------------------------------------------------------------------
+    |  Method recordDelete(scanner)
+    |
+    |  Purpose:  Prompts the user with options on what table the user wants to delete data from.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void recordDelete(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which type of record would you like to delete?\n"
@@ -238,6 +410,20 @@ public class View{
 		}
 	}
 	
+	/*---------------------------------------------------------------------
+    |  Method recordUpdate(scanner)
+    |
+    |  Purpose:  Prompts the user with options on what table the user wants to update data from.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void recordUpdate(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which type of record would you like to update?\n"
@@ -449,6 +635,21 @@ public class View{
 		}
 	}
 	
+	/*---------------------------------------------------------------------
+    |  Method query(scanner)
+    |
+    |  Purpose:  Prompts the user with an option of different queries to run on the database, the
+	|			 user input then determines how we will call the controller.
+    |
+    |  Pre-condition:  Scanner is open and controller database connection is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void query(Scanner scanner) {
 		System.out.println("\n----------------------------------------------\n"
 				+ "Which type of query would you like to do?\n"
@@ -570,6 +771,23 @@ public class View{
 
 	}
 	
+	/*---------------------------------------------------------------------
+    |  Method query(scanner)
+    |
+    |  Purpose:  The main function creates the controller, establishes the connection to the database
+	|			 and calls prompt which allows the user to interact with the database. The database connection
+	|			 is then closed before returning.
+    |
+    |  Pre-condition:  Connection to the database is not established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      args[0] - The username for authentication to the oracle database.
+	|	   args[1] - The password for authentication to the oracle database.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
     public static void main(String[] args){
     	if (args.length != 2) {    // get username/password from cmd line args
 		    System.out.println("\nUsage:  java JDBC <username> <password>\n"

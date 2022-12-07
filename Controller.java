@@ -1,9 +1,107 @@
+/*=============================================================================
+ |   Assignment:  Program #4:  
+ |		 	File: Controller.java
+ |       Authors: Chase Hult
+ |				  Rebekah Julicher
+ |				  Felipe Lopez
+ |				  Davlat Uralov
+ |       Grader:  L. McCann
+ |
+ |       Course:  CSC 460
+ |   Instructor:  L. McCann
+ |     Due Date:  12/05/2022 3:30 PM
+ |
+ |  Description:  This program is the controller of our system. The controller takes charge of communicating 
+ |				  with our database and executing queries. The controller has multiple methods that query, update
+ |			      delete and insert in the database. The controller must first run login to establish the connection to
+ |				  the database before running any queries. The controller is not responsible of returning any values but
+ |				  instead prints the result of the query that was ran.
+ |				  
+ |
+ |     Language:  Java (JDK 1.6)
+ |     Packages:  java.sql.*
+ |			  	  java.time.LocalTime
+ |                
+ | Deficiencies:  We are not aware of unsatisfied requirements or logical errors.
+ *===========================================================================*/
+
 import java.sql.*;
 import java.time.LocalTime;
 
+
+/*+----------------------------------------------------------------------
+||
+||  Class Controller
+||
+||       Authors: Chase Hult
+||				  Rebekah Julicher
+||				  Felipe Lopez
+||				  Davlat Uralov
+||		  
+||    Inspired By: Professor L. McCann
+||
+||        Purpose:  An object of this class can establish a connection to the database using the static login method.
+||					we can then execute specific queries from the controller based on the methods provided. The controller
+||					is responsible for communication with the oracle database.
+||
+||  Inherits From:  None
+||
+||     Interfaces:  None
+||
+|+-----------------------------------------------------------------------
+||
+||      Constants: None
+||
+|+-----------------------------------------------------------------------
+||
+||   Constructors:  The default constructor, no arguments.
+||
+||  Class Methods:  None.
+||
+||  Inst. Methods:  void login(String username, String password)
+||                  void executeQueryOne(String prefix)
+||                  void executeQueryTwo(String prefix, String date, String airline)
+||                  void executeQueryThree(String prefix, String date)
+||                  void executeQueryFour(String prefix)
+||                  void executeQueryFive(String prefix, String airportID)
+||					void insertFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
+||						LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
+||					static void updateFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
+||						LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)||
+||					static void deleteFlight(int flightId)
+||                  void insertPassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor)
+||					void updatePassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor)
+||					void deletePassenger(int passengerId)
+||					void insertAirport(int airportId, String name, String airportCode, String location)
+||					void updateAirport(int airportId, String name, String airportCode, String location)
+||					void deleteAirport(int airportId)
+||					void insertBoardingGate(int gateId, int airport)
+||					void updateBoardingGate(int gateId, int airport)
+||					void deleteBoardingGate(int gateId)
+||					void insertStaff(int employeeId, String name, String job, String airport)
+||					void updateStaff(int employeeId, String name, String job, String airport)
+||					void deleteStaff(int employeeId)
+||                  
+++-----------------------------------------------------------------------*/
 public class Controller {
 	private static Connection dbconn;
 
+    /*---------------------------------------------------------------------
+    |  Method login(username, password)
+    |
+    |  Purpose:  Establishes the connection to the oracle database with the credentials
+	|		     passed as parameters.
+    |
+    |  Pre-condition:  Their is no connection to the database.
+    |
+    |  Post-condition: A connection to the database is established.
+    |
+    |  Parameters:
+    |      username - The username to be used in the oracle authentication.
+	|	   password - The password to be used in the oracle authentication.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void login(String username, String password) {
 		final String oracleURL = // Magic lectura -> aloe access spell
 				"jdbc:oracle:thin:@aloe.cs.arizona.edu:1521:oracle";
@@ -38,6 +136,21 @@ public class Controller {
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method executeQueryOne(prefix)
+    |
+    |  Purpose:  Queries the database to list all distinct passenger names, who took flights from
+	|			 all four airlines in the year 2021.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      prefix - The prefix to the database tables being queried.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void executeQueryOne(String prefix) {
 		try {
 			Statement stmt = dbconn.createStatement(); // The statement to execute the query
@@ -78,7 +191,25 @@ public class Controller {
 			System.out.println("Could not execute query one due to some SQL exception.");
 		}
 	}
-
+	
+    /*---------------------------------------------------------------------
+    |  Method executeQueryTwo(prefix, date, airline)
+    |
+    |  Purpose:  Queries the database to list the passengers with the number of checked-in bags sorted
+	|			 in ascending order of the number of checked-in bags based on the airline passed as a parameter.
+	|			 The output is grouped by flights for a particular date in march based on the date passed.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      prefix - The prefix to the database tables being queried.
+	|	   date   - The date for the query to be grouped.
+	|	   airline- The airline we are quering for.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void executeQueryTwo(String prefix, String date, String airline) {
 		try {
 			Statement stmt = dbconn.createStatement(); // The statement to execute the query
@@ -128,6 +259,22 @@ public class Controller {
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method executeQueryThree(prefix, date)
+    |
+    |  Purpose:  Queries the database to list the scheduled flights for the date passed as a parameter in June. The
+	|			 output is sorted in ascending order of the boarding time.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      prefix - The prefix to the database tables being queried.
+	|	   date   - The day in june for the query.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void executeQueryThree(String prefix, String date) {
 		try {
 			Statement stmt = dbconn.createStatement(); // The statement to execute the query
@@ -183,6 +330,23 @@ public class Controller {
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method executeQueryFour(prefix)
+    |
+    |  Purpose:  Queries the database to list the the three categories of for each of the following queries
+	|			 for any particular airline: Traveled only once in the month of March, Traveled with exactly
+	|			 one checked in back anytime in the months of June and July, Ordered snacks/beverages on at least
+	|			 one flight.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      prefix - The prefix to the database tables being queried.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void executeQueryFour(String prefix) {
 		String[] categories = { "Student", "Frequent_Flier", "Minor" };
 		for (int x = 0; x < 3; x++) {
@@ -264,6 +428,22 @@ public class Controller {
 
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method executeQueryFive(prefix)
+    |
+    |  Purpose:  Queries the database to list all the staff that are related to a particular airport
+	|			 based on the airportID provided.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      prefix - The prefix to the database tables being queried.
+	|	   airportID - The ID of the airport to check the staff of.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void executeQueryFive(String prefix, String airportID) {
 		/*
 		 * Given an airportID display all the staff members that are involved with that
@@ -317,6 +497,19 @@ public class Controller {
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method close()
+    |
+    |  Purpose:  Closes the connection to the oracle database.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: The connection to the database is closed.
+    |
+    |  Parameters: None
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void close() {
 		try {
 			dbconn.close();
@@ -326,6 +519,29 @@ public class Controller {
 		}
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertFlight(flightId, airlineName, boardingGate, flightDate,
+	|					boardingTime, departingTime, intervalMinutes, airportFrom, airportTo)
+    |
+    |  Purpose:  Inserts a tuple to the Flight table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		flightId 		- ID of the new flight
+	|		airlineName		- Name of the new flight
+	|		boardingGate	- Boarding gate of new flight
+	|		flightDate		- Day of the flight
+	|		boardingTime	- Time of the flight boarding
+	|		departingTime	- Time of departure
+	|		intervalMinutes - Interval of flight
+	|		airportFrom		- The ID of the airport its leaving
+	|		airportTo		- The ID of the airport it is going to 
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void insertFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
@@ -342,6 +558,29 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method updateFlight(flightId, airlineName, boardingGate, flightDate,
+	|					boardingTime, departingTime, intervalMinutes, airportFrom, airportTo)
+    |
+    |  Purpose:  Updates a tuple to the Flight table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		flightId 		- ID of the flight to update
+	|		airlineName		- Name of the new flight
+	|		boardingGate	- Boarding gate of new flight
+	|		flightDate		- Day of the flight
+	|		boardingTime	- Time of the flight boarding
+	|		departingTime	- Time of departure
+	|		intervalMinutes - Interval of flight
+	|		airportFrom		- The ID of the airport its leaving
+	|		airportTo		- The ID of the airport it is going to 
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void updateFlight(int flightId, String airlineName, String boardingGate, Date flightDate,
 			LocalTime boardingTime, LocalTime departingTime, int intervalMinutes, int airportFrom, int airportTo)
 			throws SQLException {
@@ -363,6 +602,21 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method deleteFlight(flightId)
+    |
+    |  Purpose:  Deletes a tuple to the Flight table in the database currently connected based on 
+	|			 the flight ID provided.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		flightId 		- ID of the flight to delete.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void deleteFlight(int flightId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Flight"
@@ -372,6 +626,24 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertPassenger(passengerId, name, frequentFlier, student, minor)
+    |
+    |  Purpose:  Inserts a tuple to the Passenger table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		passengerId   - The ID of the new passenger
+	|		name		  - The name of the new passenger
+	|		frequentFlier - Boolean representing if passenger is a frequent flier
+	|		student		  - Boolean representing if passenger is a student
+	|		minor		  - Boolean representing if passenger is a minor
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void insertPassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?, ?)");
@@ -383,6 +655,24 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method updatePassenger(passengerId, name, frequentFlier, student, minor)
+    |
+    |  Purpose:  Updates a tuple in the Passenger table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		passengerId   - The ID of the passenger to update
+	|		name		  - The name of the new passenger
+	|		frequentFlier - Boolean representing if passenger is a frequent flier
+	|		student		  - Boolean representing if passenger is a student
+	|		minor		  - Boolean representing if passenger is a minor
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void updatePassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
@@ -398,6 +688,20 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method deletePassenger(passengerId)
+    |
+    |  Purpose:  Deletes a tuple in the Passenger table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		passengerId   - The ID of the passenger to delete
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void deletePassenger(int passengerId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Passenger"
@@ -407,6 +711,23 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertAirport(airportId, name, airportCode, location)
+    |
+    |  Purpose:  Inserts a tuple to the Airport table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		airportId   	- The ID of the new airport
+	|		name		  	- The name of the new airport
+	|		airportCode 	- The code of the new airport
+	|		location		- The airport location
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void insertAirport(int airportId, String name, String airportCode, String location) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?)");
 		pstmt.setInt(1, airportId);
@@ -417,6 +738,23 @@ public class Controller {
 		
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertAirport(airportId, name, airportCode, location)
+    |
+    |  Purpose:  Updates a tuple in the Airport table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		airportId   	- The ID of the airport to update
+	|		name		  	- The new name of the airport
+	|		airportCode 	- The new code of the airport
+	|		location		- The new airport location
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void updateAirport(int airportId, String name, String airportCode, String location) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE Airport"
@@ -430,6 +768,20 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+	/*---------------------------------------------------------------------
+    |  Method deleteAirport(airportId)
+    |
+    |  Purpose:  Deletes a tuple in the Airport table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		airportId   	- The ID of the airport to delete
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void deleteAirport(int airportId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Airport"
@@ -439,6 +791,21 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertBoardingGate(gateId, airport)
+    |
+    |  Purpose:  Inserts a tuple to the BoardingGate table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		gateId   	- The ID of the new boarding gate
+	|		airport		- The airport in which this gate lives
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void insertBoardingGate(int gateId, int airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO BoardingGate VALUES (?, ?)");
 		pstmt.setInt(1, gateId);
@@ -446,6 +813,21 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method updateBoardingGate(gateId, airport)
+    |
+    |  Purpose:  Updates a tuple in the BoardingGate table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		gateId   	- The ID of the boarding gate to update
+	|		airport		- The new airport in which the gate will live
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void updateBoardingGate(int gateId, int airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE BoardingGate"
@@ -457,6 +839,20 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method deleteBoardingGate(gateId)
+    |
+    |  Purpose:  Deletes a tuple in the BoardingGate table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		gateId   	- The ID of the boarding gate to delete
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void deleteBoardingGate(int gateId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM BoardingGate"
@@ -466,16 +862,50 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
-	public static void insertStaff(int employeeId, String name, String job, String airport) throws SQLException {
+    /*---------------------------------------------------------------------
+    |  Method insertStaff(employeeId, name, job, airport)
+    |
+    |  Purpose:  Inserts a tuple in the Staff table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		employeeId   	- The ID of the new employee
+	|		name		  	- The name of the new employee
+	|		job 			- The job of the new employee
+	|		airline			- The airline which employs this employee
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void insertStaff(int employeeId, String name, String job, String airline) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO Staff VALUES (?, ?, ?, ?)");
 		pstmt.setInt(1, employeeId);
 		pstmt.setString(2, name);
 		pstmt.setString(3, job);
-		pstmt.setString(4, airport);
+		pstmt.setString(4, airline);
 		pstmt.executeQuery();
 
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertStaff(employeeId, name, job, airport)
+    |
+    |  Purpose:  Updates a tuple in the Staff table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		employeeId   	- The ID of the employee top update
+	|		name		  	- The new name of the employee
+	|		job 			- The new job of the employee
+	|		airline			- The new airline which employs this employee
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void updateStaff(int employeeId, String name, String job, String airport) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE Staff"
@@ -489,6 +919,20 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertStaff(employeeId)
+    |
+    |  Purpose:  Deletes a tuple in the Staff table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		employeeId   	- The ID of the employee that will be deleted
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	public static void deleteStaff(int employeeId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM Staff"
