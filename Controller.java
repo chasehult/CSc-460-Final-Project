@@ -183,6 +183,96 @@ public class Controller{
 			System.out.println("Could not execute query three due to some SQL exception.");
 		}
 	}
+	
+	public static void executeQueryFour() {
+		String[] categories = {"Student", "Frequent_Flier", "Minor"};
+		for (int x = 0; x < 3; x++) {
+				try {
+				Statement stmt = dbconn.createStatement();	// The statement to execute the query
+				ResultSet answer = null; // The answer to the query
+				
+				// The query to execute to oracle
+				String queryP1 = "SELECT DISTINCT name\n"
+						+ " FROM Passenger\n"
+							+ " JOIN PassengerFlight USING (passenger_id)\n"
+							+ " JOIN Flight USING (flight_id)\n"
+						+ " WHERE airline = 'Delta'"
+						+ " AND " + categories[x] + " = 1"
+						+ " AND flight_date BETWEEN DATE '2021-03-01' AND DATE '2021-03-31'"
+						+ " GROUP BY name, passenger_id"
+						+ " HAVING COUNT(*) = 1";
+				
+				String queryP2 = "SELECT DISTINCT name"
+						+ " FROM Passenger"
+							+ " JOIN PassengerFlight USING (passenger_id)"
+							+ " JOIN Flight USING (flight_id)\n"
+						+ " WHERE airline = 'Delta'"
+						+ " AND " + categories[x] + " = 1"
+						+ " AND flight_date BETWEEN DATE '2021-06-01' AND DATE '2021-07-31'"
+						+ " AND bags_checked = 1";
+				
+				String queryP3 = "SELECT DISTINCT name"
+						+ " FROM Passenger"
+							+ " JOIN PassengerFlight USING (passenger_id)"
+							+ " JOIN Flight USING (flight_id)"
+						+ " WHERE airline = 'Delta'"
+						+ " AND " + categories[x] + " = 1"
+						+ " AND ordered_snacks = 1";
+				
+				System.out.println("\nCATEGORY: " + categories[x] + "\n");
+				
+				answer = stmt.executeQuery(queryP1);
+	            if (answer != null) {
+	            	System.out.println("TRAVELED ONCE:");
+	                ResultSetMetaData answermetadata = answer.getMetaData();
+	
+	                for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
+	                    System.out.print(answermetadata.getColumnName(i) + "\t");
+	                }
+	                System.out.println("\n--------------------------");
+	
+	                while (answer.next()) System.out.println(answer.getString(1));
+	            }
+	            System.out.println("=========================\n");
+	            
+	            answer = null;
+	            answer = stmt.executeQuery(queryP2);
+	            if (answer != null) {
+	            	System.out.println("TRAVELED WITH ONE CHECKED IN BAG:");
+	                ResultSetMetaData answermetadata = answer.getMetaData();
+	
+	                for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
+	                    System.out.print(answermetadata.getColumnName(i) + "\t");
+	                }
+	                System.out.println("\n--------------------------");
+	
+	                while (answer.next()) System.out.println(answer.getString(1));
+	            }
+	            System.out.println("=========================\n");
+	            	
+	            answer = null;
+	            answer = stmt.executeQuery(queryP2);
+	            if (answer != null) {
+	            	System.out.println("ORDERED SNACKS/BEVERAGES:");
+	                ResultSetMetaData answermetadata = answer.getMetaData();
+	
+	                for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
+	                    System.out.print(answermetadata.getColumnName(i) + "\t");
+	                }
+	                System.out.println("\n--------------------------");
+	
+	                while (answer.next()) System.out.println(answer.getString(1));
+	            }
+	            System.out.println("=========================\n");
+	            
+				stmt.close();
+				
+			} catch (SQLException e) {
+				System.out.println("Could not execute query four due to some SQL exception.");
+			}
+		}
+		
+	}
 
 
     public static void executeQueryFive(String prefix, String airportID) {
