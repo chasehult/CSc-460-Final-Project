@@ -111,7 +111,7 @@ public class Controller{
 
                 ResultSetMetaData answermetadata = answer.getMetaData();
 
-                for (int i = 1; i <= answermetadata.getColumnCount(); i++) {
+                for (int i = 2; i <= answermetadata.getColumnCount(); i++) {
                     System.out.print(answermetadata.getColumnName(i) + "\t");
                 }
                 System.out.println("\n----------------------------------");
@@ -122,9 +122,9 @@ public class Controller{
                 String currID = "";
                 while (answer.next()) {
                 	String flight = answer.getString(1);
-                	if (flight != currID) {
+                	if (!flight.equals(currID)) {
                 		currID = flight;
-                		System.out.println("FLIGHT #" + currID);
+                		System.out.println("\nFLIGHT #" + currID);
                 	}
                 	System.out.println(answer.getString(2) + "\t" + answer.getString(3));
                 }
