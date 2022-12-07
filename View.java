@@ -1226,7 +1226,7 @@ public class View{
 				}
 				int passengerID1 = Integer.valueOf(passengerID); 
 
-				controller.getHistory(passengerID);
+				controller.getHistory(passengerID1);
 				break;
 			case "4":
 				break;
