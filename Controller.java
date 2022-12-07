@@ -756,7 +756,7 @@ public class Controller {
     |
     |  Returns:  None
     *-------------------------------------------------------------------*/
-	public static void PassengerFlight(int passengerId, int flightId, int bagsChecked, boolean orderedSnacks)
+	public static void updatePassengerFlight(int passengerId, int flightId, int bagsChecked, boolean orderedSnacks)
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE chasehult.PassengerFlight"
@@ -785,7 +785,7 @@ public class Controller {
     |
     |  Returns:  None
     *-------------------------------------------------------------------*/
-	public static void deletePassenger(int passengerId, int flightId) throws SQLException {
+	public static void deletePassengerFlight(int passengerId, int flightId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM chasehult.PassengerFlight"
 				+ " WHERE passenger_id = ? AND flight_id = ?"
