@@ -1069,7 +1069,7 @@ public class Controller {
 		System.out.println("---  ---------  ----  -----  --------  ---------  --------  ----  ---");
 		while (answer.next()) {
 			System.out.printf(
-					"%3d  %9s  %4s  %02d/%02d  %05d:%02d  %06d:%02d  %5d:%02d  %4d  %3d\n",
+					"%3d  %9s  %4s  %02d/%02d     %02d:%02d      %02d:%02d  %5d:%02d  %4d  %3d\n",
 					answer.getInt("flight_id"),
 					answer.getString("airline"),
 					answer.getString("boarding_gate"),
