@@ -617,6 +617,7 @@ public class Controller {
     |
     |  Returns:  None
     *-------------------------------------------------------------------*/
+	
 	public static void deleteFlight(int flightId) throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "DELETE FROM chasehult.Flight"
@@ -646,7 +647,7 @@ public class Controller {
     *-------------------------------------------------------------------*/
 	public static void insertPassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
-		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Staff VALUES (?, ?, ?, ?, ?)");
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.Passenger VALUES (?, ?, ?, ?, ?)");
 		pstmt.setInt(1, passengerId);
 		pstmt.setString(2, name);
 		pstmt.setInt(3, frequentFlier?1:0);
@@ -676,7 +677,7 @@ public class Controller {
 	public static void updatePassenger(int passengerId, String name, boolean frequentFlier, boolean student, boolean minor) 
 			throws SQLException {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
-				+ "UPDATE chasehult.Airport"
+				+ "UPDATE chasehult.Passenger"
 				+ " SET name = ?, frequent_flier = ?, student = ?, minor = ?"
 				+ " WHERE airport_id = ?"
 		);
@@ -711,6 +712,88 @@ public class Controller {
 		pstmt.executeQuery();
 	}
 
+    /*---------------------------------------------------------------------
+    |  Method insertPassengerFlight(passengerId, flightId, bagsChecked, orderedSnacks)
+    |
+    |  Purpose:  Inserts a tuple to the PassengerFlight table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		passengerId   - The ID of the passenger
+	|		flightId	  - The ID of the flight
+	|		bagsChecked   - The number of bags that were checked
+	|		orderedSnacks - Boolean representing if passenger ordered snacks
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void insertPassengerFlight(int passengerId, int flightId, int bagsChecked, boolean orderedSnacks) 
+			throws SQLException {
+		PreparedStatement pstmt = dbconn.prepareStatement("INSERT INTO chasehult.PassengerFlight VALUES (?, ?, ?, ?)");
+		pstmt.setInt(1, passengerId);
+		pstmt.setInt(2, flightId);
+		pstmt.setInt(3, bagsChecked);
+		pstmt.setInt(4, orderedSnacks?1:0);
+		pstmt.executeQuery();
+	}
+
+    /*---------------------------------------------------------------------
+    |  Method updatePassengerFlight(passengerId, flightId, bagsChecked, orderedSnacks)
+    |
+    |  Purpose:  Updates a tuple in the PassengerFlight table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		passengerId   - The ID of the passenger
+	|		flightId	  - The ID of the flight
+	|		bagsChecked   - The number of bags that were checked
+	|		orderedSnacks - Boolean representing if passenger ordered snacks
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void PassengerFlight(int passengerId, int flightId, int bagsChecked, boolean orderedSnacks)
+			throws SQLException {
+		PreparedStatement pstmt = dbconn.prepareStatement(""
+				+ "UPDATE chasehult.PassengerFlight"
+				+ " SET bags_checked = ?, ordered_snacks = ?"
+				+ " WHERE passenger_id = ? AND flight_id = ?"
+		);
+		pstmt.setInt(1, bagsChecked);
+		pstmt.setInt(2, orderedSnacks?1:0);
+		pstmt.setInt(3, passengerId);
+		pstmt.setInt(4, flightId);
+		pstmt.executeQuery();
+	}
+
+    /*---------------------------------------------------------------------
+    |  Method deletePassengerFlight(passengerId, flightId)
+    |
+    |  Purpose:  Deletes a tuple in the PassengerFlight table in the database currently connected.
+    |
+    |  Pre-condition:  A connection to the database is established.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+	|		passengerId   - The ID of the passenger 
+	|       flightId	  - The ID of the flight
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	public static void deletePassenger(int passengerId, int flightId) throws SQLException {
+		PreparedStatement pstmt = dbconn.prepareStatement(""
+				+ "DELETE FROM chasehult.PassengerFlight"
+				+ " WHERE passenger_id = ? AND flight_id = ?"
+		);
+		pstmt.setInt(1, passengerId);
+		pstmt.setInt(2, flightId);
+		pstmt.executeQuery();
+	}
     /*---------------------------------------------------------------------
     |  Method insertAirport(airportId, name, airportCode, location)
     |
