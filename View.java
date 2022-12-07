@@ -100,7 +100,7 @@ public class View{
 				String date = "";
 				String airline = "";
 				
-				System.out.println("Please enter a day in June to check: ");
+				System.out.println("Please enter a day in March to check: ");
 				date = scanner.nextLine();
 				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 32)) {
 					System.out.println("Invalid input - please input a number from 1-31.");
@@ -113,7 +113,7 @@ public class View{
 			case "3":
 				date = "";
 				
-				System.out.println("Please enter a day in March to check: ");
+				System.out.println("Please enter a day in June to check: ");
 				date = scanner.nextLine();
 				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 31)) {
 					System.out.println("Invalid input - please input a number from 1-30.");
