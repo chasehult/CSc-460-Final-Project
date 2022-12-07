@@ -78,7 +78,6 @@ import java.util.Scanner;
 ++-----------------------------------------------------------------------*/
 public class View{
 	private static String prefix;
-    private static Controller controller;
 
     /*---------------------------------------------------------------------
     |  Method isNumeric(strNum)

@@ -58,15 +58,7 @@ CREATE TABLE Flight (
         + MOD((MOD(departing_time, 100) + MOD(duration, 100)), 60)) < 2400)
 );
 -- This is as close as I can get to a function. 
-CREATE OR REPLACE VIEW ArrivalTimes AS 
-SELECT flight_id, 
-        -- Hours
-        ((TRUNC(departing_time / 100) + TRUNC(duration / 100) + TRUNC((MOD(departing_time, 100) + MOD(duration, 100)) / 60)) * 100
-        -- Minutes
-        + MOD((MOD(departing_time, 100) + MOD(duration, 100)), 60))
-        AS arrival_time
-  FROM Flight;
-
+w
 CREATE TABLE Passenger (
     passenger_id INTEGER NOT NULL PRIMARY KEY,
     name VARCHAR(30) NOT NULL,
@@ -176,15 +168,15 @@ CREATE TABLE StaffFlight (
     CONSTRAINT sflight_pk PRIMARY KEY (employee_id, flight_id)
 );
 
-GRANT SELECT ON Airline TO PUBLIC; 
-GRANT SELECT ON Airport TO PUBLIC; 
-GRANT SELECT ON BoardingGate TO PUBLIC; 
-GRANT SELECT ON Passenger TO PUBLIC; 
-GRANT SELECT ON Passenger TO PUBLIC; 
-GRANT SELECT ON Staff TO PUBLIC; 
-GRANT SELECT ON PassengerAirline TO PUBLIC; 
-GRANT SELECT ON PassengerFlight TO PUBLIC; 
-GRANT SELECT ON StaffFlight TO PUBLIC; 
+GRANT ALL ON Airline TO PUBLIC; 
+GRANT ALL ON Airport TO PUBLIC; 
+GRANT ALL ON BoardingGate TO PUBLIC; 
+GRANT ALL ON Passenger TO PUBLIC; 
+GRANT ALL ON Flight TO PUBLIC; 
+GRANT ALL ON Staff TO PUBLIC; 
+GRANT ALL ON PassengerAirline TO PUBLIC; 
+GRANT ALL ON PassengerFlight TO PUBLIC; 
+GRANT ALL ON StaffFlight TO PUBLIC; 
 
 -- Test Passengers
 INSERT INTO Passenger VALUES (0, 'Avia Agreste', 0, 0, 0);
@@ -208,13 +200,15 @@ INSERT INTO Staff VALUES (7, 'Moira Barbos', 'Cabin Crew', 'United');
 
 -- Test Airports
 INSERT INTO Airport VALUES (0, 'Los Angeles International Airport', 'LAX', 'Los Angeles, CA');
-INSERT INTO Airport VALUES (1, 'Phoenix Sky Harbor International Airport', 'PHX', 'Phoenix, AZ');
 INSERT INTO BoardingGate VALUES ('A1', 0);
 INSERT INTO BoardingGate VALUES ('A2', 0);
 INSERT INTO BoardingGate VALUES ('A3', 0);
 INSERT INTO BoardingGate VALUES ('B1', 0);
 INSERT INTO BoardingGate VALUES ('B2', 0);
+INSERT INTO Airport VALUES (1, 'Phoenix Sky Harbor International Airport', 'PHX', 'Phoenix, AZ');
 INSERT INTO BoardingGate VALUES ('A1', 1);
+INSERT INTO Airport VALUES (2, 'Salt Lake City International Airport', 'SLC', 'Salt Lake City, UT');
+INSERT INTO BoardingGate VALUES ('A1', 2);
 
 -- Test Flights
 -- Data for Query 1
