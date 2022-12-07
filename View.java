@@ -1224,6 +1224,7 @@ public class View{
 					System.out.println("Invalid input - please enter a valid ID.");
 					passengerID = scanner.nextLine();
 				}
+				int passengerID1 = Integer.valueOf(passengerID); 
 
 				controller.getHistory(passengerID);
 				break;
