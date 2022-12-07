@@ -1006,7 +1006,74 @@ public class View{
 				break;
 		}
 	}
+
+	/*---------------------------------------------------------------------
+    |  Method showAll(scanner)
+    |
+    |  Purpose:  Prompts the user with an option of different data to list from
+	|			 the database, the proper controller method is then called based on
+	|			 user input.
+    |
+    |  Pre-condition:  Scanner object is open.
+    |
+    |  Post-condition: None
+    |
+    |  Parameters:
+    |      scanner - The scanner to collect user input.
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
+	private static void showAll(Scanner scanner) {
+		System.out.println("\n----------------------------------------------\n"
+				+ "Which data would you like to see?\n"
+				+ "----------------------------------------------\n"
+				+ "1: List all passengers.\n\n"
+				+ "2: List all flights.\n\n"
+				+ "3: List a passengers History.\n\n"
+				+ "4: Go Back");
+		String input = scanner.nextLine();
+		while (!isNumeric(input) || !(Integer.valueOf(input) > 0 && Integer.valueOf(input) < 7)) {
+			System.out.println("Invalid input - please input a number from 1-6.");
+			input = scanner.nextLine();
+		}
+		switch (input) {
+			case "1":
+
+				break;
+			case "2":
+				
+				break;
+			case "3":
+				String passengerID = "";
+				
+				System.out.println("Please enter a day in June to check: ");
+				passengerID = scanner.nextLine();
+				while (!isNumeric(input) || passengerID.length() == 0) {
+					System.out.println("Invalid input - please enter a valid ID.");
+					passengerID = scanner.nextLine();
+				}
+
+
+				break;
+			case "4":
+				break;
+		}
+	}
 	
+	/*---------------------------------------------------------------------
+    |  Method query(scanner)
+    |
+    |  Purpose:  Prompts the user with an option of different menus to explore, the
+	|			 method representing the designated menu is then called.
+    |
+    |  Pre-condition:  None
+    |
+    |  Post-condition: Scanner object is open.
+    |
+    |  Parameters: None
+    |
+    |  Returns:  None
+    *-------------------------------------------------------------------*/
 	private static void prompt() {
 		System.out.println("\n------------------------\n"
 				+ "Please choose an option.\n"
@@ -1015,7 +1082,8 @@ public class View{
 				+ "2: Delete a record\n"
 				+ "3: Update a record\n"
 				+ "4: Query the DB\n"
-				+ "5: Quit\n");
+				+ "5: List Data"
+				+ "6: Quit\n");
 		
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
@@ -1037,6 +1105,9 @@ public class View{
 					case "4":
 						query(scanner);
 						break;
+					case "5":
+						showAll(scanner);
+						break;
 				}
 				System.out.println("\n------------------------\n"
 						+ "Please choose an option.\n"
@@ -1053,7 +1124,7 @@ public class View{
 	}
 	
 	/*---------------------------------------------------------------------
-    |  Method query(scanner)
+    |  Method main(scanner)
     |
     |  Purpose:  The main function creates the controller, establishes the connection to the database
 	|			 and calls prompt which allows the user to interact with the database. The database connection
