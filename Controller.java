@@ -145,12 +145,12 @@ public class Controller{
 			
 			// The query to execute to oracle
 			String query = "SELECT DISTINCT flight_id, boarding_gate, airline, flight_date,"
-					+ " boarding_time, departing_time, duration, apf.location AS \"from\", apt.location AS \"to\""
+					+ " boarding_time, departing_time, duration, apf.location AS \"from\","
+					+ " apt.location AS \"to\""
 					+ " FROM " + prefix + ".Flight"
-					+ " JOIN "  + prefix + ".Airport apf ON (dest_from = apf.airport_id)"
+					+ " JOIN " + prefix + ".Airport apf ON (dest_from = apf.airport_id)"
 					+ " JOIN " + prefix + ".Airport apt ON (dest_to = apt.airport_id)"
-					+ " WHERE flight_date = TO_DATE(" + date + " || '-JUN-21')"
-					+ " ORDER BY boarding_time ASC";
+					+ " WHERE flight_date = TO_DATE(" + date + " || '-JUN-21') ORDER BY boarding_time ASC;";
 			
 			answer = stmt.executeQuery(query);
 
