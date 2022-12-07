@@ -97,16 +97,32 @@ public class View{
 				controller.executeQueryOne(prefix);
 				break;
 			case "2":
-				//TODO: Get date and airline from user
 				String date = "";
 				String airline = "";
+				
+				System.out.println("Please enter a day in June to check: ");
+				date = scanner.nextLine();
+				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 32)) {
+					System.out.println("Invalid input - please input a number from 1-31.");
+					date = scanner.nextLine();
+				}
+				System.out.println("Please enter an airline to check: ");
+				airline = scanner.nextLine();
 				controller.executeQueryTwo(prefix, date, airline);
 				break;
 			case "3":
+				date = "";
 				
+				System.out.println("Please enter a day in March to check: ");
+				date = scanner.nextLine();
+				while (!(Integer.valueOf(date) > 0 && Integer.valueOf(input) < 31)) {
+					System.out.println("Invalid input - please input a number from 1-30.");
+					date = scanner.nextLine();
+				}
+				controller.executeQueryThree(prefix, date);
 				break;
 			case "4":
-				
+				controller.executeQueryFour(prefix);
 				break;
 			case "5":
 				
@@ -165,7 +181,7 @@ public class View{
         //TODO use correct username and password or add user input for those
         //Controller controller = new Controller("username", "password");
     	System.out.println("Welcome to our CSC460 JDBC interface!");
-    	prefix = ""; //TODO: Add correct database prefix
+    	prefix = "chasehult"; //TODO: Add correct database prefix
     	prompt();
         //uncomment after fixing username/password issue above
         //controller.close();

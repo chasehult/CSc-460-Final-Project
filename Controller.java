@@ -94,9 +94,9 @@ public class Controller{
 			
 			// The query to execute to oracle
 			String query = "SELECT flight_id, name, bags_checked "
-					+ "FROM Passenger "
-						+ "NATURAL JOIN PassengerFlight "
-						+ "NATURAL JOIN Flight "
+					+ "FROM " + prefix + "Passenger "
+						+ "NATURAL JOIN " + prefix + "PassengerFlight "
+						+ "NATURAL JOIN " + prefix + "Flight "
 					+ "WHERE flight_date = TO_DATE(" + date + " || '-MAR-21') AND airline = " + airline
 					+ " ORDER BY flight_id, bags_checked";
 			
@@ -146,7 +146,7 @@ public class Controller{
 			// The query to execute to oracle
 			String query = "SELECT DISTINCT flight_id, boarding_gate, airline, flight_date, "
 					+ "boarding_time, departing_time, duration, route "
-						+ "FROM Flight "
+						+ "FROM " + prefix + "Flight "
 						+ "WHERE flight_date = TO_DATE(" + date + " || '-JUN-21')"
 					+ "ORDER BY boarding_time ASC";
 			
@@ -184,7 +184,7 @@ public class Controller{
 		}
 	}
 	
-	public static void executeQueryFour() {
+	public static void executeQueryFour(String prefix) {
 		String[] categories = {"Student", "Frequent_Flier", "Minor"};
 		for (int x = 0; x < 3; x++) {
 				try {
@@ -192,10 +192,10 @@ public class Controller{
 				ResultSet answer = null; // The answer to the query
 				
 				// The query to execute to oracle
-				String queryP1 = "SELECT DISTINCT name\n"
-						+ " FROM Passenger\n"
-							+ " JOIN PassengerFlight USING (passenger_id)\n"
-							+ " JOIN Flight USING (flight_id)\n"
+				String queryP1 = "SELECT DISTINCT name"
+						+ " FROM " + prefix + ".Passenger"
+							+ " JOIN " + prefix + "PassengerFlight USING (passenger_id)"
+							+ " JOIN " + prefix + "Flight USING (flight_id)"
 						+ " WHERE airline = 'Delta'"
 						+ " AND " + categories[x] + " = 1"
 						+ " AND flight_date BETWEEN DATE '2021-03-01' AND DATE '2021-03-31'"
@@ -203,18 +203,18 @@ public class Controller{
 						+ " HAVING COUNT(*) = 1";
 				
 				String queryP2 = "SELECT DISTINCT name"
-						+ " FROM Passenger"
-							+ " JOIN PassengerFlight USING (passenger_id)"
-							+ " JOIN Flight USING (flight_id)\n"
+						+ " FROM " + prefix + "Passenger"
+							+ " JOIN " + prefix + "PassengerFlight USING (passenger_id)"
+							+ " JOIN " + prefix + "Flight USING (flight_id)"
 						+ " WHERE airline = 'Delta'"
 						+ " AND " + categories[x] + " = 1"
 						+ " AND flight_date BETWEEN DATE '2021-06-01' AND DATE '2021-07-31'"
 						+ " AND bags_checked = 1";
 				
 				String queryP3 = "SELECT DISTINCT name"
-						+ " FROM Passenger"
-							+ " JOIN PassengerFlight USING (passenger_id)"
-							+ " JOIN Flight USING (flight_id)"
+						+ " FROM " + prefix + "Passenger"
+							+ " JOIN " + prefix + "PassengerFlight USING (passenger_id)"
+							+ " JOIN " + prefix + "Flight USING (flight_id)"
 						+ " WHERE airline = 'Delta'"
 						+ " AND " + categories[x] + " = 1"
 						+ " AND ordered_snacks = 1";
