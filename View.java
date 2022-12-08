@@ -1000,7 +1000,7 @@ public class View{
 			}
 			else{
 				try{
-					calendarDate.set(Calendar.HOUR_OF_DAY, Integer.valueOf(boardingTimeString.substring(0,3)));
+					calendarDate.set(Calendar.HOUR_OF_DAY, Integer.valueOf(boardingTimeString.substring(0,2)));
 					calendarDate.set(Calendar.MINUTE, Integer.valueOf(boardingTimeString.substring(3,5)));
 					boardingTime = new Time(calendarDate.getTimeInMillis());
 				}catch (Exception e){
@@ -1019,7 +1019,7 @@ public class View{
 			}
 			else{
 				try{
-					calendarDate.set(Calendar.HOUR_OF_DAY, Integer.valueOf(departingTimeString.substring(0,3)));
+					calendarDate.set(Calendar.HOUR_OF_DAY, Integer.valueOf(departingTimeString.substring(0,2)));
 					calendarDate.set(Calendar.MINUTE, Integer.valueOf(departingTimeString.substring(3,5)));
 					departingTime = new Time(calendarDate.getTimeInMillis());
 				}catch (Exception e){
