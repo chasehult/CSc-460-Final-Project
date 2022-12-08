@@ -678,7 +678,7 @@ public class Controller {
 		PreparedStatement pstmt = dbconn.prepareStatement(""
 				+ "UPDATE chasehult.Passenger"
 				+ " SET name = ?, frequent_flier = ?, student = ?, minor = ?"
-				+ " WHERE airport_id = ?"
+				+ " WHERE passenger_id = ?"
 		);
 		pstmt.setString(1, name);
 		pstmt.setInt(2, frequentFlier?1:0);
